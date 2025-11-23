@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025 AI/SW 기초 프로그래밍 과제전</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* 기본 스타일 */
+        body { font-family: 'Segoe UI', 'Apple SD Gothic Neo', sans-serif; margin: 0; padding: 0; background-color: #f8f9fa; color: #333; }
+        
+        /* 헤더 */
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 60px 20px; text-align: center; }
+        header h1 { margin: 0; font-size: 2.2em; font-weight: 700; }
+        header p { margin-top: 10px; font-size: 1.1em; opacity: 0.9; }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+
+        /* 탭(분반 선택) 네비게이션 */
+        .tabs { display: flex; justify-content: center; margin-top: -30px; margin-bottom: 30px; }
+        .tab-button {
+            background: white; border: none; padding: 15px 30px; margin: 0 5px;
+            cursor: pointer; font-size: 1.1em; font-weight: bold; color: #555;
+            border-radius: 10px 10px 0 0; box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+        .tab-button:hover { background-color: #eee; }
+        .tab-button.active { 
+            background-color: #fff; color: #764ba2; 
+            border-bottom: 3px solid #764ba2; pointer-events: none;
+        }
+
+        /* 탭 내용 영역 */
+        .tab-content { display: none; animation: fadeIn 0.5s; }
+        .tab-content.active { display: block; }
+
+        /* 그리드 레이아웃 */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+
+        /* 카드 디자인 (이미지 없음) */
+        .card { 
+            background: white; border-radius: 12px; padding: 25px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #eee;
+            transition: transform 0.2s; display: flex; flex-direction: column; height: 100%;
+        }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
+        
+        .card-header { display: flex; align-items: center; margin-bottom: 15px; }
+        .icon-box { 
+            width: 40px; height: 40px; background-color: #f0f4ff; color: #764ba2; 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            margin-right: 15px; font-size: 1.2em;
+        }
+        
+        .project-title { font-size: 1.25em; font-weight: bold; margin: 0 0 5px 0; color: #2d3748; }
+        .team-name { font-size: 0.9em; color: #718096; font-weight: 500; }
+        
+        .description { font-size: 0.95em; color: #4a5568; line-height: 1.6; margin-bottom: 20px; flex-grow: 1; }
+        
+        /* 링크 버튼 스타일 */
+        .link-btn {
+            display: block; text-align: center; background-color: #764ba2; color: white;
+            padding: 10px; border-radius: 8px; text-decoration: none; font-weight: bold;
+            transition: background 0.3s;
+        }
+        .link-btn:hover { background-color: #5a3780; }
+        .link-btn i { margin-left: 5px; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        footer { text-align: center; padding: 40px; color: #aaa; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🎓 2025 AI/SW 기초 프로그래밍</h1>
+        <p>분반별 과제 및 프로젝트 링크 모음</p>
+    </header>
+
+    <div class="container">
+        
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'class1')">1분반</button>
+            <button class="tab-button" onclick="openTab(event, 'class2')">2분반</button>
+            <button class="tab-button" onclick="openTab(event, 'class3')">3분반</button>
+            <button class="tab-button" onclick="openTab(event, 'class4')">4분반</button>
+        </div>
+
+        <div id="class1" class="tab-content active">
+            <div class="grid">
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-code"></i></div> <div>
+                            <h3 class="project-title">나만의 단어장</h3>
+                            <div class="team-name">팀 알파 (홍길동, 김철수)</div>
+                        </div>
+                    </div>
+                    <p class="description">파이썬 딕셔너리를 활용하여 틀린 단어를 저장하고 복습하는 콘솔 프로그램입니다.</p>
+                    <a href="https://github.com/..." target="_blank" class="link-btn">
+                        코드 보러가기 <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-chart-line"></i></div>
+                        <div>
+                            <h3 class="project-title">주가 분석기</h3>
+                            <div class="team-name">팀 베타 (이영희)</div>
+                        </div>
+                    </div>
+                    <p class="description">Pandas를 이용해 삼성전자 주가 데이터를 분석하고 시각화했습니다.</p>
+                    <a href="#" target="_blank" class="link-btn">결과물 보기 <i class="fas fa-external-link-alt"></i></a>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="class2" class="tab-content">
+            <div class="grid">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-gamepad"></i></div>
+                        <div>
+                            <h3 class="project-title">숫자 야구 게임</h3>
+                            <div class="team-name">팀 감마 (박민수)</div>
+                        </div>
+                    </div>
+                    <p class="description">랜덤 함수와 반복문을 사용하여 만든 클래식 숫자 맞추기 게임입니다.</p>
+                    <a href="#" class="link-btn">플레이 하기 <i class="fas fa-play"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div id="class3" class="tab-content">
+            <p style="text-align: center; color: #888;">아직 등록된 프로젝트가 없습니다.</p>
+        </div>
+
+        <div id="class4" class="tab-content">
+            <p style="text-align: center; color: #888;">아직 등록된 프로젝트가 없습니다.</p>
+        </div>
+
+    </div>
+
+    <footer>
+        © 2025 Chosun Univ. AI/SW Dept. All rights reserved.
+    </footer>
+
+    <script>
+        // 탭 전환 기능 스크립트
+        function openTab(evt, className) {
+            var i, tabcontent, tablinks;
+            
+            // 모든 탭 내용 숨기기
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+                tabcontent[i].classList.remove("active");
+            }
+            
+            // 모든 탭 버튼 비활성화
+            tablinks = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            
+            // 선택한 탭 내용 보이기 및 버튼 활성화
+            document.getElementById(className).style.display = "block";
+            setTimeout(() => document.getElementById(className).classList.add("active"), 10);
+            evt.currentTarget.className += " active";
+        }
+    </script>
+
+</body>
+</html>
