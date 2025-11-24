@@ -6,9 +6,11 @@
     <title>2025 AI기반 SW프로그래밍 프로젝트 전시회</title>
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
     <script src="https://unpkg.com/@lyket/widget@latest/dist/lyket.js?apiKey=pt_e8fdcf240c258d5fc5168301b548a5"></script>
 
     <style>
+        /* ================= 스타일 정의 ================= */
         :root { --primary-color: #6a11cb; --secondary-color: #2575fc; --bg-color: #f4f7f6; --text-color: #333; }
         body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; }
         
@@ -17,6 +19,7 @@
         
         .container { max-width: 1200px; margin: -50px auto 0; padding: 0 20px; position: relative; }
         
+        /* 탭 네비게이션 */
         .tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 40px; flex-wrap: wrap; }
         .tab-button { background: white; border: none; padding: 15px 40px; cursor: pointer; font-size: 1.1em; font-weight: 700; color: #777; border-radius: 50px; transition: 0.3s; }
         .tab-button.active { background-color: var(--primary-color); color: white; box-shadow: 0 5px 15px rgba(106,17,203,0.4); }
@@ -24,11 +27,13 @@
         .tab-content { display: none; animation: fadeIn 0.6s ease; }
         .tab-content.active { display: block; }
 
+        /* 카드 그리드 */
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px 30px; padding-bottom: 50px; }
 
         .card { background: white; border-radius: 16px; padding: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); display: flex; flex-direction: column; height: 100%; position: relative; border: 1px solid #edf2f7; transition: transform 0.3s; }
         .card:hover { transform: translateY(-7px); }
         
+        /* 상태 뱃지 */
         .status-badge { position: absolute; top: 15px; right: 15px; font-size: 0.75em; padding: 4px 10px; border-radius: 20px; font-weight: bold; }
         .status-done { background-color: #e6fffa; color: #2c7a7b; } 
         .status-yet { background-color: #fff5f5; color: #c53030; }  
@@ -277,28 +282,28 @@
                 </div>
                 <div class="card">
                     <span class="status-badge status-done">제출완료</span>
-                    <div class="card-header"><div class="icon-box"><i class="fas fa-user"></i></div><div class="project-info"><h3 class="project-title">ChatGPT 대화</h3><div class="team-name">유영광</div></div></div>
-                    <p class="description">프로필 + 한/영/코드 키워드 + Embedding 컨텍스트로 방향성을 잡는 대화형 챗봇!</p>
+                    <div class="card-header"><div class="icon-box"><i class="fas fa-comments"></i></div><div class="project-info"><h3 class="project-title">ChatGPT 대화</h3><div class="team-name">유영광</div></div></div>
+                    <p class="description">프로필 + 키워드 + 컨텍스트로 방향성을 잡는 대화형 챗봇!</p>
                     <a href="https://ai-sw3-p9scmjib89vhbhvakpynbj.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
                     <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_03" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
                 </div>
                 <div class="card">
                     <span class="status-badge status-done">제출완료</span>
-                    <div class="card-header"><div class="icon-box"><i class="fas fa-user"></i></div><div class="project-info"><h3 class="project-title">GREEN DAILY</h3><div class="team-name">정서연</div></div></div>
+                    <div class="card-header"><div class="icon-box"><i class="fas fa-leaf"></i></div><div class="project-info"><h3 class="project-title">GREEN DAILY</h3><div class="team-name">정서연</div></div></div>
                     <p class="description">환경보호 루틴을 실천하세요!</p>
-                    <a href="https://chosun202503.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="https://am7kfmzgszituwphk3fulk.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
                     <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_04" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
                 </div>
                 <div class="card">
                     <span class="status-badge status-done">제출완료</span>
-                    <div class="card-header"><div class="icon-box"><i class="fas fa-user"></i></div><div class="project-info"><h3 class="project-title">맞춤형 도서 큐레이터</h3><div class="team-name">박초영</div></div></div>
+                    <div class="card-header"><div class="icon-box"><i class="fas fa-book"></i></div><div class="project-info"><h3 class="project-title">맞춤형 도서 큐레이터</h3><div class="team-name">박초영</div></div></div>
                     <p class="description">MBTI 기반으로 책을 추천해드려요!</p>
                     <a href="https://chosun202502.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
                     <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_05" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
                 </div>
                 <div class="card">
                     <span class="status-badge status-done">제출완료</span>
-                    <div class="card-header"><div class="icon-box"><i class="fas fa-user"></i></div><div class="project-info"><h3 class="project-title">Goal Maker</h3><div class="team-name">박은교</div></div></div>
+                    <div class="card-header"><div class="icon-box"><i class="fas fa-bullseye"></i></div><div class="project-info"><h3 class="project-title">Goal Maker</h3><div class="team-name">박은교</div></div></div>
                     <p class="description">당신만의 AI 맞춤 목표 코치!</p>
                     <a href="https://aisw0722.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
                     <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_06" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
