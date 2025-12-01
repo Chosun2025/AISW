@@ -3,124 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2025 AI기반 SW프로그래밍 프로젝트 전시회</title>
+    <title>2025 AI기반 SW프로그래밍 프로젝트 전시회 (Christmas Ver.)</title>
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Pretendard:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@lyket/widget@latest/dist/lyket.js?apiKey=pt_e8fdcf240c258d5fc5168301b548a5"></script>
 
     <style>
-        /* ================= 변수 및 기본 설정 ================= */
+        /* ================= 크리스마스 테마 변수 ================= */
         :root {
-            --primary-color: #6a11cb;
-            --secondary-color: #2575fc;
-            --bg-color: #f4f7f6;
-            --text-color: #333;
+            --primary-red: #D42426;       /* 산타 레드 */
+            --primary-green: #165B33;     /* 트리 그린 */
+            --accent-gold: #F8B229;       /* 장식 골드 */
+            --bg-color: #f0f2f5;          /* 눈 배경색 */
+            --text-color: #2c3e50;
         }
+
         body {
-            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            font-family: 'Pretendard', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
             padding-bottom: 50px;
+            overflow-x: hidden; /* 눈송이 스크롤 방지 */
         }
+
+        /* ================= 눈 내리는 효과 (Snow Animation) ================= */
+        .snow-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: #fff;
+            font-size: 1em;
+            text-shadow: 0 0 1px #000;
+            animation-name: fall, shake;
+            animation-duration: 10s, 3s;
+            animation-timing-function: linear, ease-in-out;
+            animation-iteration-count: infinite, infinite;
+        }
+        @keyframes fall {
+            0% { top: -10%; }
+            100% { top: 100%; }
+        }
+        @keyframes shake {
+            0% { transform: translateX(0px); }
+            50% { transform: translateX(80px); }
+            100% { transform: translateX(0px); }
+        }
+        /* 눈송이 위치 랜덤 설정 */
+        .snowflake:nth-of-type(1) { left: 1%; animation-delay: 0s, 0s; }
+        .snowflake:nth-of-type(2) { left: 10%; animation-delay: 1s, 1s; }
+        .snowflake:nth-of-type(3) { left: 20%; animation-delay: 6s, 0.5s; }
+        .snowflake:nth-of-type(4) { left: 30%; animation-delay: 4s, 2s; }
+        .snowflake:nth-of-type(5) { left: 40%; animation-delay: 2s, 2s; }
+        .snowflake:nth-of-type(6) { left: 50%; animation-delay: 8s, 3s; }
+        .snowflake:nth-of-type(7) { left: 60%; animation-delay: 6s, 2s; }
+        .snowflake:nth-of-type(8) { left: 70%; animation-delay: 2.5s, 1s; }
+        .snowflake:nth-of-type(9) { left: 80%; animation-delay: 1s, 0s; }
+        .snowflake:nth-of-type(10) { left: 90%; animation-delay: 3s, 1.5s; }
 
         /* ================= 헤더 (Header) ================= */
         header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: linear-gradient(135deg, var(--primary-red), #8E0E00);
             color: white;
-            padding: 70px 20px 100px;
+            padding: 80px 20px 120px;
             text-align: center;
+            border-bottom: 5px solid var(--accent-gold);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
         header h1 {
+            font-family: 'Gowun Dodum', serif;
             margin: 0;
-            font-size: 2.4em;
+            font-size: 2.6em;
             font-weight: 800;
-            letter-spacing: -1px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
         header p {
-            margin-top: 10px;
-            opacity: 0.9;
+            margin-top: 15px;
+            opacity: 0.95;
             font-size: 1.1em;
+            font-weight: 500;
         }
 
         /* ================= 메인 컨테이너 ================= */
         .container {
             max-width: 1200px;
-            margin: -50px auto 0;
+            margin: -60px auto 0;
             padding: 0 20px;
             position: relative;
+            z-index: 10;
         }
 
         /* ================= 탭 네비게이션 (Tabs) ================= */
         .tabs {
             display: flex;
             justify-content: center;
-            gap: 10px;
-            margin-bottom: 40px;
+            gap: 12px;
+            margin-bottom: 50px;
             flex-wrap: wrap;
         }
         .tab-button {
             background: white;
-            border: none;
-            padding: 15px 40px;
+            border: 2px solid white;
+            padding: 15px 35px;
             cursor: pointer;
             font-size: 1.1em;
-            font-weight: 700;
-            color: #777;
+            font-weight: 800;
+            color: var(--primary-green);
             border-radius: 50px;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
         .tab-button:hover {
-            background-color: #f8f9fa;
-            color: var(--primary-color);
-            transform: translateY(-2px);
+            background-color: var(--primary-green);
+            color: white;
+            border-color: var(--accent-gold);
+            transform: translateY(-3px);
         }
         .tab-button.active {
-            background-color: var(--primary-color);
+            background-color: var(--primary-red);
             color: white;
-            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
-            transform: translateY(-2px);
+            border-color: var(--primary-red);
+            box-shadow: 0 5px 15px rgba(212, 36, 38, 0.4);
+            transform: translateY(-3px);
         }
 
-        /* 탭 콘텐츠 영역 및 애니메이션 */
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.6s ease;
-        }
-        .tab-content.active {
-            display: block;
-        }
+        /* 탭 콘텐츠 및 애니메이션 */
+        .tab-content { display: none; animation: fadeIn 0.6s ease; }
+        .tab-content.active { display: block; }
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ================= 카드 그리드 시스템 ================= */
+        /* ================= 카드 그리드 ================= */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 40px 30px;
+            gap: 30px;
             padding-bottom: 50px;
         }
 
         /* ================= 카드 디자인 (Card) ================= */
         .card {
             background: white;
-            border-radius: 16px;
+            border-radius: 20px;
             padding: 25px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
             display: flex;
             flex-direction: column;
             height: 100%;
             position: relative;
-            border: 1px solid #edf2f7;
+            border: 1px solid rgba(0,0,0,0.05);
+            border-top: 4px solid var(--primary-green); /* 상단 포인트 컬러 */
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             box-sizing: border-box;
         }
         .card:hover {
-            transform: translateY(-7px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(22, 91, 51, 0.15);
+            border-top-color: var(--primary-red);
         }
 
         /* 카드 헤더 및 아이콘 */
@@ -130,146 +180,155 @@
             margin: 10px 0 15px;
         }
         .icon-box {
-            min-width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, #e0c3fc, #8ec5fc);
+            min-width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary-green), #2E8B57);
             color: white;
-            border-radius: 12px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-right: 15px;
-            font-size: 1.2em;
+            font-size: 1.3em;
+            box-shadow: 0 4px 8px rgba(22, 91, 51, 0.2);
             transition: transform 0.3s;
         }
         .card:hover .icon-box {
-            transform: scale(1.1) rotate(5deg);
+            transform: rotate(10deg) scale(1.1);
+            background: linear-gradient(135deg, var(--primary-red), #FF6347);
         }
-        .project-info {
-            flex-grow: 1;
-        }
+        .project-info { flex-grow: 1; }
         .project-title {
             margin: 0 0 5px 0;
-            font-size: 1.2em;
-            color: #2d3748;
-            word-break: keep-all;
+            font-size: 1.25em;
+            font-weight: 700;
+            color: #222;
             line-height: 1.3;
+            word-break: keep-all;
         }
         .team-name {
             font-size: 0.9em;
-            color: #718096;
-            font-weight: bold;
+            color: #666;
+            font-weight: 600;
         }
         .description {
             font-size: 0.95em;
-            color: #666;
+            color: #555;
             margin-bottom: 25px;
             flex-grow: 1;
             word-break: keep-all;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
-        /* ================= 상태 뱃지 (Badge) ================= */
+        /* ================= 상태 뱃지 ================= */
         .status-badge {
             position: absolute;
             top: 15px;
             right: 15px;
             font-size: 0.75em;
-            padding: 4px 10px;
+            padding: 5px 12px;
             border-radius: 20px;
             font-weight: bold;
-            z-index: 10;
+            z-index: 5;
         }
         .status-done {
-            background-color: #e6fffa;
-            color: #2c7a7b;
+            background-color: #E8F5E9;
+            color: var(--primary-green);
+            border: 1px solid #C8E6C9;
         }
         .status-yet {
-            background-color: #fff5f5;
-            color: #c53030;
+            background-color: #FFEBEE;
+            color: var(--primary-red);
+            border: 1px solid #FFCDD2;
         }
 
         /* ================= 버튼 스타일 ================= */
-        /* 메인 링크 버튼 */
         .link-btn {
             display: block;
             text-align: center;
-            background-color: var(--secondary-color);
+            background-color: var(--primary-green);
             color: white;
             padding: 12px;
-            border-radius: 10px;
+            border-radius: 12px;
             text-decoration: none;
-            font-weight: 600;
-            transition: background-color 0.3s;
+            font-weight: 700;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(22, 91, 51, 0.2);
         }
         .link-btn:hover {
-            background-color: #1a5bb8;
+            background-color: #124a2a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(22, 91, 51, 0.3);
         }
         .link-btn.disabled {
             background-color: #e2e8f0;
             color: #a0aec0;
+            box-shadow: none;
             pointer-events: none;
-            cursor: not-allowed;
         }
 
-        /* PDF 버튼 */
         .pdf-btn {
             display: block;
             text-align: center;
-            background-color: #ffffff;
+            background-color: #fff;
             color: #555;
             border: 1px solid #ddd;
             padding: 10px;
-            border-radius: 10px;
+            border-radius: 12px;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s;
-            margin-top: 8px;
+            margin-top: 10px;
             font-size: 0.9em;
         }
         .pdf-btn:hover {
-            background-color: #f8f9fa;
-            border-color: #bbb;
-            color: #d32f2f;
+            background-color: #fff5f5;
+            border-color: var(--primary-red);
+            color: var(--primary-red);
         }
-        .pdf-btn i {
-            margin-right: 5px;
-            color: #d32f2f;
-        }
-        .pdf-btn.disabled {
-            color: #ccc;
-            border-color: #eee;
-            pointer-events: none;
-        }
-        .pdf-btn.disabled i {
-            color: #ccc;
-        }
+        .pdf-btn i { color: var(--primary-red); margin-right: 6px; }
+        .pdf-btn.disabled { color: #ccc; border-color: #eee; pointer-events: none; }
+        .pdf-btn.disabled i { color: #ccc; }
 
         /* 좋아요 버튼 컨테이너 */
         .like-container {
             margin-top: 15px;
             padding-top: 15px;
-            border-top: 1px dashed #eee;
+            border-top: 1px dashed #ddd;
             display: flex;
             justify-content: center;
         }
 
-        /* ================= 푸터 (Footer) ================= */
+        /* ================= 푸터 ================= */
         footer {
             text-align: center;
-            padding: 50px;
-            color: #a0aec0;
+            padding: 60px 20px;
+            color: #888;
             border-top: 1px solid #eee;
             margin-top: 50px;
             font-size: 0.9em;
+            background-color: white;
         }
     </style>
 </head>
 <body>
 
+    <div class="snow-container" aria-hidden="true">
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+    </div>
+
     <header>
-        <h1>🎓 2025 AI기반 SW프로그래밍</h1>
-        <p>학생들의 창의적인 프로젝트를 소개합니다</p>
+        <h1>🎄 2025 AI기반 SW프로그래밍</h1>
+        <p>🎅 학생들의 창의적인 프로젝트를 소개합니다 🎁</p>
     </header>
 
     <div class="container">
@@ -294,7 +353,7 @@
                     <p class="description">기분 · 장르 · 가수를 반영해서 나만의 음악을 추천해줄게</p>
                     <a href="https://aisw1118.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
                     <a href="manuals/3501.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_01" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_01" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -309,7 +368,7 @@
                     <p class="description">국내 여행 코스 및 동선을 소개합니다.</p>
                     <a href="#" target="_blank" class="link-btn">결과물 보기</a>
                     <a href="manuals/3502.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_02" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_02" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -324,7 +383,7 @@
                     <p class="description">버릴 물건을 입력하면 분리수거를 도와드려요!</p>
                     <a href="https://aiswfrist.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
                     <a href="manuals/3503.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_03" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_03" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -339,7 +398,7 @@
                     <p class="description">뭐 먹을지 고민 노노. 맛집을 찾아드립니다.</p>
                     <a href="https://chosun202501.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
                     <a href="manuals/3504.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_04" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_04" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -354,7 +413,7 @@
                     <p class="description">냉장고 재료로 AI가 레시피를 추천해줍니다.</p>
                     <a href="https://aiswhyungs.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
                     <a href="manuals/3505.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_05" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_05" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -369,7 +428,7 @@
                     <p class="description">당신만을 위한 여행 일정을 AI가 추천해줍니다.</p>
                     <a href="https://aiswf001.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
                     <a href="manuals/3506.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_06" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_06" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -384,7 +443,7 @@
                     <p class="description">투자 조건을 선택하면 AI가 종목을 추천합니다.</p>
                     <a href="https://aisw0512.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
                     <a href="manuals/3507.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_07" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_07" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -399,7 +458,7 @@
                     <p class="description">허위 정보/가짜 논문 탐지기</p>
                     <a href="https://chosun3508.streamlit.app/" class="link-btn">결과물 보기</a>
                     <a href="manuals/3508.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_08" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_08" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -414,7 +473,7 @@
                     <p class="description">장르를 선택하면 웹툰을 추천해드립니다!</p>
                     <a href="https://aisw011.streamlit.app/" class="link-btn">결과물 보기</a>
                     <a href="manuals/3509.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_09" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_09" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -429,7 +488,7 @@
                     <p class="description">핸드폰 번호와 문자 내용을 입력하면 문자를 보내드립니다!</p>
                     <a href="https://aisw000111.streamlit.app/" class="link-btn">결과물 보기</a>
                     <a href="manuals/3510.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_10" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_10" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -444,7 +503,7 @@
                     <p class="description">입력한 재료를 기반으로 만들 수 있는 요리를 추천해주는 앱입니다!</p>
                     <a href="https://aiswsecond.streamlit.app/" class="link-btn">결과물 보기</a>
                     <a href="manuals/3511.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_11" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_11" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -459,7 +518,7 @@
                     <p class="description">삶을 개선하기 위한 첫걸음!</p>
                     <a href="https://aisw-3-vxudgzozc4o7pwrb55kn5f.streamlit.app" class="link-btn">결과물 보기</a>
                     <a href="manuals/3512.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_12" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_12" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -474,7 +533,7 @@
                     <p class="description">목표 카테고리와 목표를 입력하세요!</p>
                     <a href="https://aisw000000001.streamlit.app/" class="link-btn">결과물 보기</a>
                     <a href="manuals/3513.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_13" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_13" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -489,7 +548,7 @@
                     <p class="description">여행지를 추천해드립니다!</p>
                     <a href="https://aiaiaidd.streamlit.app/" class="link-btn">결과물 보기</a>
                     <a href="manuals/3514.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_14" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_14" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -504,7 +563,7 @@
                     <p class="description">당신의 체형을 분석해드립니다!</p>
                     <a href="https://aisw1026.streamlit.app/" class="link-btn">결과물 보기</a>
                     <a href="manuals/3515.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_15" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_15" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -519,7 +578,7 @@
                     <p class="description">사진을 업로드하면 AI가 사진을 구별해줍니다!</p>
                     <a href="https://share.streamlit.io/app/aiimagedetect11/" class="link-btn">결과물 보기</a>
                     <a href="manuals/3516.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_16" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_16" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -534,7 +593,7 @@
                     <p class="description">성향 기반 맞춤형 게임을 추천해드립니다!</p>
                     <a href="https://aisw22.streamlit.app/#1-portal-2" target="_blank" class="link-btn">결과물 보기</a>
                     <a href="manuals/3517.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_17" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_17" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -543,13 +602,13 @@
                         <div class="icon-box"><i class="fas fa-notes-medical"></i></div>
                         <div class="project-info">
                             <h3 class="project-title">👨‍⚕️AI Hospital</h3>
-                            <div class="team-name">문효원, 최성빈</div>
+                            <div class="team-name">문효원</div>
                         </div>
                     </div>
                     <p class="description">당신의 건강을 위한 가장 신뢰할 수 있는 파트너!</p>
                     <a href="https://chosun3517.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
                     <a href="manuals/3518.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_18" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_18" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -564,7 +623,7 @@
                     <p class="description">수입과 지출을 입력하고, 통계/그래프/AI 소비조언을 받아보세요.</p>
                     <a href="https://aiswlee.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
                     <a href="manuals/3519.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_19" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_19" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -579,24 +638,9 @@
                     <p class="description">AI와 함께하는 즐거운 여행 계획</p>
                     <a href="https://chosun3506.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
                     <a href="manuals/3520.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_20" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_20" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
-              
-                <div class="card">
-                    <span class="status-badge status-done">제출완료</span>
-                    <div class="card-header">
-                        <div class="icon-box"><i class="fas fa-image"></i></div>
-                        <div class="project-info">
-                            <h3 class="project-title">배경화면 제작🌈</h3>
-                            <div class="team-name">강혜원</div>
-                        </div>
-                    </div>
-                    <p class="description">AI가 배경화면을 만들어줍니다.</p>
-                    <a href="https://chosun3500.streamlit.app/" class="link-btn">결과물 보기</a>
-                    <a href="manuals/3500.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_16" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
-                </div>
-                
+
                 <div class="card">
                     <span class="status-badge status-done">제출완료</span>
                     <div class="card-header">
@@ -609,7 +653,7 @@
                     <p class="description">물건 이름을 입력하면 쓰레기 종류를 알려줄게요!</p>
                     <a href="https://appzw7vn4ncbyrfujfcmr4s.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
                     <a href="manuals/3521.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_21" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_21" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -624,7 +668,7 @@
                     <p class="description">설명을 입력하세요</p>
                     <a href="#" class="link-btn disabled">제출 대기 중</a>
                     <a href="#" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_22" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_22" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -639,7 +683,7 @@
                     <p class="description">아침을 여는 응원 메시지와 맞춤 노래를 추천해드립니다!</p>
                     <a href="https://4vebcyi5d3cxptwshqxb3i.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
                     <a href="manuals/3523.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_23" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_23" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -654,7 +698,7 @@
                     <p class="description">간단한 질문을 통해 우울증을 진단할 수 있습니다.</p>
                     <a href="https://aisw-01.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
                     <a href="manuals/3524.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_24" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_24" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -669,7 +713,7 @@
                     <p class="description">설명을 입력하세요</p>
                     <a href="#" class="link-btn disabled">계정 제한 상태</a>
                     <a href="manuals/3525.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_25" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_25" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -684,7 +728,7 @@
                     <p class="description">AI기반 증상 분석 및 응급도 판단 서비스를 제공합니다.</p>
                     <a href="https://aiswone.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
                     <a href="manuals/3526.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_26" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_26" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -699,7 +743,7 @@
                     <p class="description">설명을 입력하세요</p>
                     <a href="#" class="link-btn disabled">제출 대기 중</a>
                     <a href="#" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_27" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_27" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
             </div>
         </div>
@@ -718,7 +762,7 @@
                     <p class="description">AI기반 맞춤형 다이어트 컨설팅</p>
                     <a href="https://aiswminho-gmp3ihm2y7jkkuejurmhae.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
                     <a href="manuals/3601.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_01" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_01" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -733,7 +777,7 @@
                     <p class="description">현명한 소비를 권장합니다!</p>
                     <a href="https://aisw010.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
                     <a href="manuals/3602.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_02" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_02" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -748,7 +792,7 @@
                     <p class="description">프로필 + 키워드 + 컨텍스트로 방향성을 잡는 대화형 챗봇!</p>
                     <a href="https://ai-sw3-p9scmjib89vhbhvakpynbj.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
                     <a href="manuals/3603.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_03" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_03" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -763,7 +807,7 @@
                     <p class="description">환경보호 루틴을 실천하세요!</p>
                     <a href="https://chosun202503.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
                     <a href="manuals/3604.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_04" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_04" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -778,7 +822,7 @@
                     <p class="description">MBTI 기반으로 책을 추천해드려요!</p>
                     <a href="https://chosun202502.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
                     <a href="manuals/3605.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_05" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_05" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -793,7 +837,7 @@
                     <p class="description">당신만의 AI 맞춤 목표 코치!</p>
                     <a href="https://aisw0722.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
                     <a href="manuals/3606.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_06" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_06" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -808,7 +852,7 @@
                     <p class="description">원하는 재료를 입력하면, AI가 가능한 요리를 추천하고 레시피까지 만들어줍니다!</p>
                     <a href="https://chosun3507.streamlit.app/" class="link-btn">결과물 보기</a>
                     <a href="manuals/3607.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_07" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_07" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -823,7 +867,7 @@
                     <p class="description">최저가 상품을 검색해보세요</p>
                     <a href="https://shopping3342.streamlit.app" target="_blank" class="link-btn">결과물 보기</a>
                     <a href="manuals/3608.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_08" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_08" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -838,7 +882,7 @@
                     <p class="description">게임을 소개하고 함께 즐겨요!</p>
                     <a href="https://jongwhan02.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
                     <a href="manuals/3609.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_09" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_09" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -853,7 +897,7 @@
                     <p class="description">차를 추천해드립니다!</p>
                     <a href="https://chosun3610.streamlit.app/" class="link-btn">제출완료</a>
                     <a href="manuals/3610.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_10" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_10" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -868,7 +912,7 @@
                     <p class="description">전통시장을 살펴보세요!</p>
                     <a href="https://chosun3611.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
                     <a href="manuals/3611.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_11" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_11" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -883,7 +927,7 @@
                     <p class="description">아직 제출되지 않았습니다.</p>
                     <a href="#" class="link-btn disabled">미제출</a>
                     <a href="manuals/3612.pdf" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_12" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_12" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -898,7 +942,7 @@
                     <p class="description">학생회 임원과 학생 간의 모든 소통과 업무를 AI 기반으로 자동화하는 통합 플랫폼입니다.</p>
                     <a href="https://chosun3713.streamlit.app/" class="link-btn">제출완료</a>
                     <a href="manuals/3613.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_13" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_13" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -912,8 +956,8 @@
                     </div>
                     <p class="description">효율적인 시간 관리를 도와드립니다.</p>
                     <a href="https://chosun3614.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-                    <a href="manuals/3614.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_14" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <a href="manuals/3614.pdf" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_14" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -927,8 +971,8 @@
                     </div>
                     <p class="description">냉장고 속 재료로 맛있는 레시피를 만들어보세요.</p>
                     <a href="https://gkwjdd.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-                    <a href="manuals/3615.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_15" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <a href="manuals/3615.pdf" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_15" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -942,8 +986,8 @@
                     </div>
                     <p class="description">학생들을 위한 최고의 맛집 추천 서비스</p>
                     <a href="https://chosun3616.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-                    <a href="manuals/3616.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_16" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <a href="manuals/3616.pdf" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_16" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -957,8 +1001,8 @@
                     </div>
                     <p class="description">오늘 뭐 먹지? AI가 추천해드립니다.</p>
                     <a href="https://delivery-6b8aksjtxpc2767pwr49fg.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-                    <a href="manuals/3617.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_17" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <a href="manuals/3617.pdf" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_17" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -972,8 +1016,8 @@
                     </div>
                     <p class="description">문서를 요약하고 퀴즈를 생성하여 학습 효율을 높이세요.</p>
                     <a href="https://aisw12341.streamlit.app/#24a50582" target="_blank" class="link-btn">결과물 보기</a>
-                    <a href="manuals/3618.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_18" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <a href="manuals/3618.pdf" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_18" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -987,8 +1031,8 @@
                     </div>
                     <p class="description">AI가 맞춤형 시험 공부 계획을 짜드립니다.</p>
                     <a href="https://yerinaisw.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-                    <a href="manuals/3619.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_19" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <a href="manuals/3619.pdf" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_19" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -1002,8 +1046,8 @@
                     </div>
                     <p class="description">취향에 맞는 액상을 추천해드립니다.</p>
                     <a href="https://liquid01.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-                    <a href="manuals/3620.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_20" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <a href="manuals/3620.pdf" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_20" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
             </div>
@@ -1023,7 +1067,7 @@
                     <p class="description">오늘의 날씨에 맞춰 당신의 옷장에서 옷을 골라드려요.</p>
                     <a href="https://aisw37-001.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
                     <a href="manuals/3701.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_01" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_01" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -1038,7 +1082,7 @@
                     <p class="description">아직 제출되지 않았습니다.</p>
                     <a href="#" class="link-btn disabled">미제출</a>
                     <a href="#" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_02" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_02" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -1053,7 +1097,7 @@
                     <p class="description">오늘은 어떤 기분이신가요?</p>
                     <a href="https://chosun3703.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
                     <a href="manuals/3703.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_03" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_03" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -1068,7 +1112,7 @@
                     <p class="description">테마를 입력하고 주식을 추천 받아보세요!</p>
                     <a href="https://chosun3704.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
                     <a href="manuals/3704.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_04" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_04" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -1083,7 +1127,7 @@
                     <p class="description">특정 상황에 맞는 권장 표현과 문화적 해설을 제공해드릴게요</p>
                     <a href="https://aiswcultural.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
                     <a href="manuals/3705.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_05" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_05" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -1098,7 +1142,7 @@
                     <p class="description">매일의 소비 기록을 입력하고, AI 기반의 분석 및 맞춤 코칭을 받아보세요.</p>
                     <a href="https://consumerimpulsebuyinghabit.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
                     <a href="manuals/3706.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_06" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_06" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -1113,7 +1157,7 @@
                     <p class="description">국내 여행의 매력을 알려줄게</p>
                     <a href="https://xsfhar9r6ba2bnhtttl3in.streamlit.app/" class="link-btn">결과물 보기</a>
                     <a href="manuals/3707" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_07" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_07" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -1128,7 +1172,7 @@
                     <p class="description">누구나 쉽게 만들 수 있어요</p>
                     <a href="https://chosun3708.streamlit.app/" class="link-btn">결과물 보기</a>
                     <a href="manuals/3708" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_08" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_08" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
             </div>
         </div>
@@ -1147,7 +1191,7 @@
                     <p class="description">당신의 퍼스널 컬러에 맞는 화장품을 추천해드려요!</p>
                     <a href="https://chosun202504.streamlit.app/" class="link-btn">결과물 보기</a>
                     <a href="manuals/3801.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_01" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_01" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -1162,7 +1206,7 @@
                     <p class="description">여행을 추천해드립니다!</p>
                     <a href="https://chosoun202505.streamlit.app/" class="link-btn">결과물 보기</a>
                     <a href="manuals/3802.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_02" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_02" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -1177,7 +1221,7 @@
                     <p class="description">요약하고 싶은 글을 붙여넣으면 3줄로 요약해 드립니다요</p>
                     <a href="https://aisw38.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
                     <a href="manuals/3803.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_03" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_03" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -1192,7 +1236,7 @@
                     <p class="description">학습루틴을 만들고 목표를 달성해보세요!</p>
                     <a href="https://aaaaisw04.streamlit.app/" class="link-btn">결과물 보기</a>
                     <a href="manuals/3804.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_04" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_04" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -1207,7 +1251,7 @@
                     <p class="description">당신의 인생 영화를 알려주세요!</p>
                     <a href="https://7kpwlumq6feqfxsut2ddti.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
                     <a href="manuals/3805.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_05" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_05" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -1222,7 +1266,7 @@
                     <p class="description">여행 정보와 궁금한 질문에 대한 답을 드려요!</p>
                     <a href="https://travel22.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
                     <a href="manuals/3806.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_06" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_06" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -1237,7 +1281,7 @@
                     <p class="description">아직 제출되지 않았습니다.</p>
                     <a href="#" class="link-btn disabled">미제출</a>
                     <a href="manuals/3807.pdf" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_07" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_07" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -1252,7 +1296,7 @@
                     <p class="description">아직 제출되지 않았습니다.</p>
                     <a href="#" class="link-btn disabled">미제출</a>
                     <a href="manuals/3808.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_08" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_08" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
 
                 <div class="card">
@@ -1267,7 +1311,7 @@
                     <p class="description">방송 자막에서 재난 관련 단어가 감지되면, AI가 즉시 위험을 알려드려요!</p>
                     <a href="https://aiswzero.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
                     <a href="manuals/3809.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_09" data-lyket-namespace="showcase2025" data-lyket-color="#6a11cb"></div></div>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_09" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
             </div>
         </div>
