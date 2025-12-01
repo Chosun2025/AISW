@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2025 AI기반 SW 프로그래밍 프로젝트</title>
+    <title>2025 AI x SW WINTER FESTA</title>
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700;900&display=swap" rel="stylesheet">
@@ -28,7 +28,7 @@
             overflow-x: hidden;
         }
 
-        /* ================= 눈 내리는 효과 (Snow Animation) ================= */
+        /* ================= 눈 내리는 효과 (Snow Animation) - 크기 수정됨 ================= */
         .snow-container {
             position: fixed;
             top: 0;
@@ -42,22 +42,24 @@
             position: absolute;
             top: -10px;
             color: #fff;
-            font-size: 1em;
-            text-shadow: 0 0 1px #000;
+            /* ▼▼▼ 여기 크기를 1em에서 2em으로 변경했습니다 ▼▼▼ */
+            font-size: 2em; 
+            /* ▲▲▲ 여기 크기를 1em에서 2em으로 변경했습니다 ▲▲▲ */
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3); /* 그림자도 살짝 더 진하게 */
             animation-name: fall, shake;
             animation-duration: 10s, 3s;
             animation-timing-function: linear, ease-in-out;
             animation-iteration-count: infinite, infinite;
-            opacity: 0.8;
+            opacity: 0.9; /* 불투명도 약간 높임 */
         }
         @keyframes fall {
             0% { top: -10%; }
             100% { top: 100%; }
         }
         @keyframes shake {
-            0% { transform: translateX(0px); }
-            50% { transform: translateX(80px); }
-            100% { transform: translateX(0px); }
+            0% { transform: translateX(0px) rotate(0deg); }
+            50% { transform: translateX(80px) rotate(20deg); }
+            100% { transform: translateX(0px) rotate(0deg); }
         }
         /* 눈송이 위치 랜덤 설정 */
         .snowflake:nth-of-type(1) { left: 1%; animation-delay: 0s, 0s; }
@@ -325,6 +327,31 @@
             justify-content: center;
         }
 
+        /* ================= 음악 플레이어 버튼 ================= */
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary-red);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 10000;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.3s;
+            border: 2px solid var(--accent-gold);
+        }
+        .music-control:hover {
+            transform: scale(1.05);
+            background: #b01c1e;
+        }
+        .music-control i { font-size: 1.2em; }
+
         /* ================= 푸터 ================= */
         footer {
             text-align: center;
@@ -338,6 +365,15 @@
     </style>
 </head>
 <body>
+
+    <audio id="bgm" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3" type="audio/mp3"> 
+        </audio>
+
+    <div class="music-control" onclick="toggleMusic()">
+        <i id="musicIcon" class="fas fa-play"></i>
+        <span id="musicText">BGM Play</span>
+    </div>
 
     <div class="snow-container" aria-hidden="true">
         <div class="snowflake">❅</div>
@@ -353,7 +389,7 @@
     </div>
 
     <header>
-        <h1>🎄 2025 AI 기반 SW 프로그래밍 🎄</h1>
+        <h1>2025 AI ✖️ SW <br>WINTER FESTA</h1>
         <p>🎅 학생들의 창의적인 프로젝트를 소개합니다 🎁</p>
     </header>
 
@@ -1385,6 +1421,23 @@
                 document.getElementById(className).classList.add("active");
             }, 10);
             evt.currentTarget.className += " active";
+        }
+
+        // 음악 컨트롤 기능
+        function toggleMusic() {
+            var music = document.getElementById("bgm");
+            var icon = document.getElementById("musicIcon");
+            var text = document.getElementById("musicText");
+
+            if (music.paused) {
+                music.play();
+                icon.className = "fas fa-pause";
+                text.innerText = "BGM Off";
+            } else {
+                music.pause();
+                icon.className = "fas fa-play";
+                text.innerText = "BGM Play";
+            }
         }
     </script>
 </body>
