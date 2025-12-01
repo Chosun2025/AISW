@@ -1,1901 +1,1449 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>2025 AI x SW WINTER FESTA</title>
-
-  <!-- Icons & Fonts -->
-  <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    rel="stylesheet"
-  />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;900&display=swap"
-    rel="stylesheet"
-  />
-  <script src="https://unpkg.com/@lyket/widget@latest/dist/lyket.js?apiKey=pt_e8fdcf240c258d5fc5168301b548a5"></script>
-
-  <style>
-    :root {
-      --primary-red: #d42426;
-      --primary-green: #165b33;
-      --deep-green: #0b3d0b;
-      --accent-gold: #ffd700;
-      --bg-color: #f3f5fb;
-      --card-bg: #ffffff;
-      --text-main: #1f2933;
-      --text-sub: #6b7280;
-      --radius-xl: 24px;
-      --radius-lg: 18px;
-      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.16);
-      --shadow-card: 0 12px 30px rgba(15, 23, 42, 0.12);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      padding: 0 0 80px 0;
-      font-family: "Pretendard", system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #ffe8e8 0, #f3f5fb 42%, #e1f2ea 100%);
-      color: var(--text-main);
-      overflow-x: hidden;
-    }
-
-    /* ========= 상단 네비게이션 ========= */
-    .top-nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 50;
-      padding: 10px 24px;
-      backdrop-filter: blur(16px);
-      background: linear-gradient(
-        135deg,
-        rgba(212, 36, 38, 0.96),
-        rgba(22, 91, 51, 0.96)
-      );
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      color: #fff;
-    }
-
-    .nav-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .nav-logo {
-      width: 34px;
-      height: 34px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 30% 30%, #fff 0, #ffd700 40%, #b91c1c 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
-      font-size: 1.1rem;
-    }
-
-    .nav-title {
-      font-weight: 900;
-      letter-spacing: -0.8px;
-      font-size: 1.05rem;
-    }
-
-    .nav-sub {
-      font-size: 0.8rem;
-      opacity: 0.8;
-    }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      font-size: 0.8rem;
-    }
-
-    .nav-pill {
-      padding: 5px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      background: rgba(0, 0, 0, 0.08);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-weight: 600;
-    }
-
-    .nav-anchor {
-      text-decoration: none;
-      color: #fff;
-      font-weight: 600;
-      font-size: 0.8rem;
-      opacity: 0.9;
-    }
-
-    .nav-anchor:hover {
-      opacity: 1;
-      text-decoration: underline;
-    }
-
-    /* ========= 헤더 영역 ========= */
-    header {
-      margin-top: 60px; /* nav 높이 보정 */
-      padding: 96px 20px 140px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      color: #fff;
-    }
-
-    header::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background: radial-gradient(circle at 10% -10%, #fff 0, transparent 45%),
-        radial-gradient(circle at 90% -20%, #ffd98a 0, transparent 40%),
-        radial-gradient(circle at 50% 140%, #ff5c5c 0, transparent 45%);
-      opacity: 0.35;
-      z-index: -1;
-    }
-
-    header-inner {
-      display: block;
-    }
-
-    .festival-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 16px;
-      border-radius: 999px;
-      font-size: 0.82rem;
-      background: rgba(0, 0, 0, 0.25);
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      backdrop-filter: blur(8px);
-      margin-bottom: 16px;
-    }
-
-    .festival-badge span {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: clamp(2.5rem, 4vw, 3.2rem);
-      font-weight: 900;
-      line-height: 1.15;
-      letter-spacing: -1.8px;
-      font-style: italic;
-      background: linear-gradient(120deg, #ffffff, #ffe082, #ffffff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.5));
-      background-size: 220% auto;
-      animation: shine 4s linear infinite;
-    }
-
-    header p {
-      margin-top: 16px;
-      font-size: 1.05rem;
-      font-weight: 500;
-      color: rgba(255, 255, 255, 0.9);
-      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    }
-
-    .header-subtext {
-      margin-top: 8px;
-      font-size: 0.9rem;
-      opacity: 0.9;
-    }
-
-    @keyframes shine {
-      to {
-        background-position: 220% center;
-      }
-    }
-
-    /* ========= 메인 컨테이너 & 섹션 ========= */
-    .page-shell {
-      max-width: 1200px;
-      margin: -72px auto 0;
-      padding: 0 20px;
-      position: relative;
-      z-index: 10;
-    }
-
-    .intro-panel {
-      background: linear-gradient(145deg, #ffffff, #fff9e6);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow-soft);
-      padding: 22px 22px 26px;
-      display: grid;
-      grid-template-columns: minmax(0, 1.8fr) minmax(0, 1.2fr);
-      gap: 18px;
-      border: 1px solid rgba(249, 250, 251, 0.9);
-    }
-
-    .intro-text h2 {
-      margin: 0 0 12px;
-      font-size: 1.3rem;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      color: #111827;
-    }
-
-    .intro-text p {
-      margin: 0;
-      font-size: 0.95rem;
-      color: var(--text-sub);
-      line-height: 1.6;
-    }
-
-    .intro-text p strong {
-      color: var(--primary-green);
-    }
-
-    .intro-meta {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-      align-content: flex-start;
-    }
-
-    .meta-chip {
-      border-radius: var(--radius-lg);
-      padding: 10px 12px;
-      border: 1px dashed rgba(31, 41, 55, 0.15);
-      background: rgba(255, 255, 255, 0.9);
-      font-size: 0.8rem;
-    }
-
-    .meta-label {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      color: #6b7280;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-    }
-
-    .meta-value {
-      display: block;
-      margin-top: 4px;
-      font-weight: 700;
-      color: #111827;
-    }
-
-    .meta-sub {
-      display: block;
-      margin-top: 2px;
-      font-size: 0.75rem;
-      color: #6b7280;
-    }
-
-    /* ========= 탭 영역 ========= */
-    .tabs-wrapper {
-      margin-top: 32px;
-      position: sticky;
-      top: 64px;
-      z-index: 30;
-    }
-
-    .tabs {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      padding: 10px 12px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.92);
-      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15);
-      backdrop-filter: blur(18px);
-    }
-
-    .tab-button {
-      border: none;
-      background: transparent;
-      font-size: 0.95rem;
-      font-weight: 700;
-      padding: 8px 20px;
-      border-radius: 999px;
-      color: var(--text-sub);
-      cursor: pointer;
-      transition: all 0.22s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .tab-button i {
-      font-size: 0.9rem;
-    }
-
-    .tab-button:hover {
-      background: rgba(22, 91, 51, 0.06);
-      color: var(--primary-green);
-    }
-
-    .tab-button.active {
-      background: linear-gradient(135deg, var(--primary-green), var(--deep-green));
-      color: #fff;
-      box-shadow: 0 12px 26px rgba(22, 91, 51, 0.4);
-    }
-
-    /* ========= 검색/범례 바 ========= */
-    .tools-bar {
-      margin: 26px 0 14px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: center;
-      font-size: 0.85rem;
-      color: var(--text-sub);
-    }
-
-    .search-box {
-      flex: 1 1 220px;
-      max-width: 340px;
-      position: relative;
-    }
-
-    .search-box input {
-      width: 100%;
-      border-radius: 999px;
-      border: 1px solid #e5e7eb;
-      padding: 9px 32px 9px 32px;
-      font-size: 0.85rem;
-      outline: none;
-      background: #fff;
-      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
-    }
-
-    .search-box i {
-      position: absolute;
-      left: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 0.85rem;
-      color: #9ca3af;
-    }
-
-    .search-box input::placeholder {
-      color: #9ca3af;
-    }
-
-    .tools-right {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    .legend-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      display: inline-block;
-      margin-right: 4px;
-    }
-
-    .legend-pill {
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid #e5e7eb;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 0.75rem;
-    }
-
-    .legend-pill span {
-      white-space: nowrap;
-    }
-
-    /* ========= 탭 콘텐츠 & 그리드 ========= */
-    .tab-content {
-      display: none;
-      animation: slideUp 0.4s ease;
-      margin-top: 6px;
-    }
-
-    .tab-content.active {
-      display: block;
-    }
-
-    @keyframes slideUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 24px;
-      padding: 12px 0 10px;
-    }
-
-    /* ========= 카드 디자인 ========= */
-    .card {
-      background: var(--card-bg);
-      border-radius: var(--radius-xl);
-      padding: 24px;
-      box-shadow: var(--shadow-card);
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      border: 1px solid rgba(15, 23, 42, 0.04);
-      border-top-width: 6px;
-      border-top-color: var(--primary-red);
-      transition: transform 0.25s ease, box-shadow 0.25s ease,
-        border-top-color 0.25s ease, translate 0.25s ease;
-      will-change: transform, box-shadow;
-      overflow: hidden;
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      top: -32px;
-      right: -32px;
-      width: 88px;
-      height: 88px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 30% 30%, #fff 0, #ffe082 35%, #f97373 100%);
-      opacity: 0.14;
-    }
-
-    .card:hover {
-      transform: translateY(-8px) scale(1.01);
-      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.24);
-      border-top-color: var(--primary-green);
-    }
-
-    .card-header {
-      display: flex;
-      align-items: flex-start;
-      margin-bottom: 12px;
-      gap: 12px;
-    }
-
-    .icon-box {
-      min-width: 48px;
-      height: 48px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, var(--primary-red), #ff6b6b);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.3rem;
-      color: #fff;
-      box-shadow: 0 7px 18px rgba(212, 36, 38, 0.45);
-      transform-origin: center;
-      transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .card:hover .icon-box {
-      transform: rotate(-8deg) scale(1.08);
-      background: linear-gradient(135deg, var(--primary-green), #4caf50);
-      box-shadow: 0 7px 18px rgba(22, 91, 51, 0.5);
-    }
-
-    .project-info {
-      flex: 1;
-    }
-
-    .project-title {
-      margin: 0 0 4px;
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: #111827;
-      line-height: 1.3;
-      word-break: keep-all;
-    }
-
-    .team-name {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--text-sub);
-    }
-
-    .description {
-      margin: 10px 0 18px;
-      font-size: 0.93rem;
-      color: #4b5563;
-      line-height: 1.6;
-      flex: 1;
-      word-break: keep-all;
-    }
-
-    .status-badge {
-      position: absolute;
-      top: 14px;
-      right: 16px;
-      font-size: 0.68rem;
-      padding: 6px 12px;
-      border-radius: 999px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      z-index: 1;
-    }
-
-    .status-done {
-      background-color: #e8f5e9;
-      color: var(--primary-green);
-      border: 1px solid #bbf7d0;
-    }
-
-    .status-yet {
-      background-color: #ffebee;
-      color: var(--primary-red);
-      border: 1px solid #fecaca;
-    }
-
-    .link-btn {
-      display: block;
-      text-align: center;
-      padding: 12px;
-      border-radius: 14px;
-      font-size: 0.95rem;
-      font-weight: 700;
-      text-decoration: none;
-      color: #fff;
-      background: linear-gradient(135deg, var(--primary-green), #2e8b57);
-      margin-top: auto;
-      box-shadow: 0 8px 18px rgba(22, 91, 51, 0.3);
-      transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
-    }
-
-    .link-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 24px rgba(22, 91, 51, 0.4);
-      filter: brightness(1.05);
-    }
-
-    .link-btn.disabled {
-      background: #e5e7eb;
-      color: #9ca3af;
-      box-shadow: none;
-      pointer-events: none;
-    }
-
-    .pdf-btn {
-      display: block;
-      margin-top: 8px;
-      text-align: center;
-      padding: 10px;
-      border-radius: 12px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      text-decoration: none;
-      border: 1px solid #e5e7eb;
-      background: #fff;
-      color: #6b7280;
-      transition: all 0.2s ease;
-    }
-
-    .pdf-btn i {
-      margin-right: 6px;
-      color: var(--primary-red);
-    }
-
-    .pdf-btn:hover {
-      border-color: var(--primary-red);
-      background: #fff5f5;
-      color: var(--primary-red);
-    }
-
-    .pdf-btn.disabled {
-      pointer-events: none;
-      color: #d1d5db;
-      border-color: #e5e7eb;
-    }
-
-    .pdf-btn.disabled i {
-      color: #d1d5db;
-    }
-
-    .like-container {
-      margin-top: 14px;
-      padding-top: 10px;
-      border-top: 1px dashed #e5e7eb;
-      display: flex;
-      justify-content: center;
-    }
-
-    /* ========= 눈 내리는 효과 ========= */
-    .snow-container {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 5;
-    }
-
-    .snowflake {
-      position: absolute;
-      top: -10px;
-      color: #ffffff;
-      font-size: 1.4rem;
-      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-      animation-name: fall, sway;
-      animation-duration: 12s, 5s;
-      animation-timing-function: linear, ease-in-out;
-      animation-iteration-count: infinite, infinite;
-      opacity: 0.9;
-    }
-
-    @keyframes fall {
-      0% {
-        top: -10%;
-      }
-      100% {
-        top: 100%;
-      }
-    }
-
-    @keyframes sway {
-      0% {
-        transform: translateX(0px) rotate(0deg);
-      }
-      50% {
-        transform: translateX(50px) rotate(12deg);
-      }
-      100% {
-        transform: translateX(0px) rotate(0deg);
-      }
-    }
-
-    .snowflake:nth-of-type(1) {
-      left: 3%;
-      animation-delay: 0s, 0s;
-    }
-    .snowflake:nth-of-type(2) {
-      left: 15%;
-      animation-delay: 2s, 1s;
-    }
-    .snowflake:nth-of-type(3) {
-      left: 29%;
-      animation-delay: 4s, 0.5s;
-    }
-    .snowflake:nth-of-type(4) {
-      left: 42%;
-      animation-delay: 1s, 2s;
-    }
-    .snowflake:nth-of-type(5) {
-      left: 53%;
-      animation-delay: 5s, 1.5s;
-    }
-    .snowflake:nth-of-type(6) {
-      left: 63%;
-      animation-delay: 7s, 0.8s;
-    }
-    .snowflake:nth-of-type(7) {
-      left: 73%;
-      animation-delay: 3s, 2.5s;
-    }
-    .snowflake:nth-of-type(8) {
-      left: 83%;
-      animation-delay: 6s, 1.2s;
-    }
-    .snowflake:nth-of-type(9) {
-      left: 91%;
-      animation-delay: 8s, 2.2s;
-    }
-    .snowflake:nth-of-type(10) {
-      left: 50%;
-      animation-delay: 10s, 1.7s;
-    }
-
-    /* ========= 음악 컨트롤 ========= */
-    .music-control {
-      position: fixed;
-      bottom: 18px;
-      right: 18px;
-      background: var(--primary-red);
-      color: #fff;
-      padding: 10px 18px;
-      border-radius: 999px;
-      cursor: pointer;
-      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.45);
-      z-index: 40;
-      font-weight: 800;
-      font-size: 0.9rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border: 2px solid var(--accent-gold);
-      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-    }
-
-    .music-control:hover {
-      transform: translateY(-2px) scale(1.05);
-      background: #b01c1e;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55);
-    }
-
-    .music-control i {
-      font-size: 1rem;
-    }
-
-    /* ========= 맨 위로 버튼 ========= */
-    .to-top {
-      position: fixed;
-      bottom: 18px;
-      left: 18px;
-      width: 36px;
-      height: 36px;
-      border-radius: 999px;
-      border: 1px solid rgba(15, 23, 42, 0.3);
-      background: rgba(255, 255, 255, 0.96);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.35);
-      z-index: 40;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(10px);
-      transition: all 0.2s ease;
-    }
-
-    .to-top.visible {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
-    .to-top i {
-      color: #111827;
-      font-size: 1rem;
-    }
-
-    /* ========= 푸터 ========= */
-    footer {
-      text-align: center;
-      padding: 60px 20px 10px;
-      font-size: 0.8rem;
-      color: #9ca3af;
-      margin-top: 40px;
-    }
-
-    footer span {
-      display: block;
-      margin-top: 3px;
-      font-size: 0.75rem;
-      opacity: 0.8;
-    }
-
-    /* ========= 반응형 ========= */
-    @media (max-width: 880px) {
-      .intro-panel {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    @media (max-width: 640px) {
-      .top-nav {
-        padding-inline: 14px;
-      }
-
-      header {
-        padding-inline: 16px;
-        padding-top: 80px;
-        padding-bottom: 110px;
-      }
-
-      .tabs-wrapper {
-        top: 56px;
-      }
-
-      .tabs {
-        border-radius: 16px;
-      }
-
-      .intro-panel {
-        padding: 18px 16px 20px;
-        border-radius: 18px;
-      }
-
-      .music-control {
-        right: 12px;
-        bottom: 14px;
-      }
-
-      .to-top {
-        left: 12px;
-        bottom: 14px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025 AI 기반 SW 프로그래밍</title>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@lyket/widget@latest/dist/lyket.js?apiKey=pt_e8fdcf240c258d5fc5168301b548a5"></script>
+
+    <style>
+        /* ================= 크리스마스 테마 변수 ================= */
+        :root {
+            --primary-red: #D42426;       /* 산타 레드 */
+            --primary-green: #165B33;     /* 트리 그린 */
+            --accent-gold: #FFD700;       /* 샤이니 골드 */
+            --bg-color: #f0f2f5;          
+            --text-color: #2c3e50;
+        }
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding-bottom: 50px;
+            overflow-x: hidden;
+        }
+
+        /* ================= 눈 내리는 효과 (Snow Animation) ================= */
+        .snow-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: #fff;
+            font-size: 2em; /* 눈송이 크기 */
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            animation-name: fall, shake;
+            animation-duration: 10s, 3s;
+            animation-timing-function: linear, ease-in-out;
+            animation-iteration-count: infinite, infinite;
+            opacity: 0.9;
+        }
+        @keyframes fall {
+            0% { top: -10%; }
+            100% { top: 100%; }
+        }
+        @keyframes shake {
+            0% { transform: translateX(0px) rotate(0deg); }
+            50% { transform: translateX(80px) rotate(20deg); }
+            100% { transform: translateX(0px) rotate(0deg); }
+        }
+        /* 눈송이 위치 랜덤 설정 */
+        .snowflake:nth-of-type(1) { left: 1%; animation-delay: 0s, 0s; }
+        .snowflake:nth-of-type(2) { left: 10%; animation-delay: 1s, 1s; }
+        .snowflake:nth-of-type(3) { left: 20%; animation-delay: 6s, 0.5s; }
+        .snowflake:nth-of-type(4) { left: 30%; animation-delay: 4s, 2s; }
+        .snowflake:nth-of-type(5) { left: 40%; animation-delay: 2s, 2s; }
+        .snowflake:nth-of-type(6) { left: 50%; animation-delay: 8s, 3s; }
+        .snowflake:nth-of-type(7) { left: 60%; animation-delay: 6s, 2s; }
+        .snowflake:nth-of-type(8) { left: 70%; animation-delay: 2.5s, 1s; }
+        .snowflake:nth-of-type(9) { left: 80%; animation-delay: 1s, 0s; }
+        .snowflake:nth-of-type(10) { left: 90%; animation-delay: 3s, 1.5s; }
+
+        /* ================= 헤더 (Header) ================= */
+        header {
+            background: radial-gradient(circle at center, #D42426 0%, #8E0E00 100%);
+            color: white;
+            padding: 90px 20px 140px;
+            text-align: center;
+            border-bottom: 6px solid var(--accent-gold);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header h1 {
+            font-family: 'Pretendard', sans-serif;
+            margin: 0;
+            font-size: 3.5em;
+            font-weight: 900;
+            letter-spacing: -2px;
+            font-style: italic;
+            
+            background: linear-gradient(to right, #fff, #FFD700, #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            
+            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
+            animation: shine 3s infinite linear;
+            background-size: 200% auto;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        header p {
+            margin-top: 15px;
+            font-size: 1.2em;
+            font-weight: 600;
+            color: rgba(255,255,255,0.9);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* ================= 메인 컨테이너 ================= */
+        .container {
+            max-width: 1200px;
+            margin: -70px auto 0;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ================= 탭 네비게이션 ================= */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+        .tab-button {
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            padding: 18px 45px;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: 800;
+            color: var(--primary-green);
+            border-radius: 50px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .tab-button:hover {
+            background-color: var(--primary-green);
+            color: white;
+            transform: translateY(-5px) scale(1.05);
+        }
+        .tab-button.active {
+            background: linear-gradient(135deg, var(--primary-green), #0B3D0B);
+            color: white;
+            border: 2px solid var(--accent-gold);
+            box-shadow: 0 10px 25px rgba(22, 91, 51, 0.4);
+            transform: translateY(-5px);
+        }
+
+        .tab-content { display: none; animation: slideUp 0.6s ease; }
+        .tab-content.active { display: block; }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ================= 카드 그리드 ================= */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 35px;
+            padding-bottom: 50px;
+        }
+
+        /* ================= 카드 디자인 ================= */
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 28px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+            border: 1px solid rgba(0,0,0,0.03);
+            border-top: 5px solid var(--primary-red);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-sizing: border-box;
+        }
+        .card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 40px rgba(212, 36, 38, 0.15);
+            border-top-color: var(--primary-green);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            margin: 10px 0 15px;
+        }
+        .icon-box {
+            min-width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-red), #FF6B6B);
+            color: white;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.4em;
+            box-shadow: 0 5px 15px rgba(212, 36, 38, 0.3);
+            transition: transform 0.3s;
+        }
+        .card:hover .icon-box {
+            transform: rotate(-10deg) scale(1.1);
+            background: linear-gradient(135deg, var(--primary-green), #4CAF50);
+            box-shadow: 0 5px 15px rgba(22, 91, 51, 0.3);
+        }
+        
+        .project-info { flex-grow: 1; }
+        .project-title {
+            margin: 0 0 5px 0;
+            font-size: 1.3em;
+            font-weight: 800;
+            color: #222;
+            line-height: 1.3;
+            word-break: keep-all;
+        }
+        .team-name {
+            font-size: 0.95em;
+            color: #666;
+            font-weight: 600;
+        }
+        .description {
+            font-size: 1em;
+            color: #555;
+            margin-bottom: 25px;
+            flex-grow: 1;
+            word-break: keep-all;
+            line-height: 1.6;
+        }
+
+        /* ================= 상태 뱃지 ================= */
+        .status-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 0.75em;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-weight: 800;
+            z-index: 5;
+            text-transform: uppercase;
+        }
+        .status-done {
+            background-color: #E8F5E9;
+            color: var(--primary-green);
+            border: 1px solid #C8E6C9;
+        }
+        .status-yet {
+            background-color: #FFEBEE;
+            color: var(--primary-red);
+            border: 1px solid #FFCDD2;
+        }
+
+        /* ================= 버튼 스타일 ================= */
+        .link-btn {
+            display: block;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary-green), #2E8B57);
+            color: white;
+            padding: 14px;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(22, 91, 51, 0.2);
+        }
+        .link-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(22, 91, 51, 0.4);
+            filter: brightness(1.1);
+        }
+        .link-btn.disabled {
+            background: #e2e8f0;
+            color: #a0aec0;
+            box-shadow: none;
+            pointer-events: none;
+        }
+
+        .pdf-btn {
+            display: block;
+            text-align: center;
+            background-color: #fff;
+            color: #555;
+            border: 2px solid #eee;
+            padding: 12px;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+            margin-top: 10px;
+            font-size: 0.95em;
+        }
+        .pdf-btn:hover {
+            background-color: #fff5f5;
+            border-color: var(--primary-red);
+            color: var(--primary-red);
+        }
+        .pdf-btn i { color: var(--primary-red); margin-right: 6px; }
+        .pdf-btn.disabled { color: #ccc; border-color: #eee; pointer-events: none; }
+        .pdf-btn.disabled i { color: #ccc; }
+
+        .like-container {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 2px dashed #eee;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* ================= 음악 플레이어 버튼 ================= */
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary-red);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            z-index: 10000;
+            font-weight: 800;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            border: 3px solid var(--accent-gold);
+        }
+        .music-control:hover {
+            transform: scale(1.1);
+            background: #b01c1e;
+        }
+        .music-control i { font-size: 1.2em; }
+
+        footer {
+            text-align: center;
+            padding: 80px 20px;
+            color: #888;
+            border-top: 1px solid #eee;
+            margin-top: 50px;
+            font-size: 0.9em;
+            background-color: white;
+        }
+    </style>
 </head>
 <body>
-  <!-- BGM -->
-  <audio id="bgm" loop>
-    <source
-      src="https://upload.wikimedia.org/wikipedia/commons/transcoded/8/89/Jingle_Bells_by_Kevin_MacLeod.ogg/Jingle_Bells_by_Kevin_MacLeod.ogg.mp3"
-      type="audio/mp3"
-    />
-  </audio>
 
-  <!-- 상단 네비게이션 -->
-  <nav class="top-nav">
-    <div class="nav-left">
-      <div class="nav-logo">
-        <i class="fas fa-snowman"></i>
-      </div>
-      <div>
-        <div class="nav-title">2025 AI x SW Winter Festa</div>
-        <div class="nav-sub">Student Project Online Gallery</div>
-      </div>
-    </div>
-    <div class="nav-right">
-      <div class="nav-pill">
-        <i class="fa-regular fa-calendar"></i>
-        <span>2025 Winter Semester</span>
-      </div>
-      <a href="#gallery" class="nav-anchor">프로젝트 구경하기</a>
-    </div>
-  </nav>
+    <audio id="bgm" loop>
+        <source src="https://upload.wikimedia.org/wikipedia/commons/transcoded/8/89/Jingle_Bells_by_Kevin_MacLeod.ogg/Jingle_Bells_by_Kevin_MacLeod.ogg.mp3" type="audio/mp3"> 
+    </audio>
 
-  <!-- 눈 효과 -->
-  <div class="snow-container" aria-hidden="true">
-    <div class="snowflake">❅</div>
-    <div class="snowflake">❆</div>
-    <div class="snowflake">❅</div>
-    <div class="snowflake">❆</div>
-    <div class="snowflake">❅</div>
-    <div class="snowflake">❆</div>
-    <div class="snowflake">❅</div>
-    <div class="snowflake">❆</div>
-    <div class="snowflake">❅</div>
-    <div class="snowflake">❆</div>
-  </div>
-
-  <!-- 헤더 -->
-  <header id="top">
-    <header-inner>
-      <div class="festival-badge">
-        <i class="fa-solid fa-gift"></i>
-        <span>AI & SW 프로젝트 온라인 전시 · <i class="fa-solid fa-tree"></i> Merry Coding!</span>
-      </div>
-      <h1>2025 AI ✖️ SW<br />WINTER FESTA</h1>
-      <p>🎅 한 학기 동안 만든 학생들의 크리에이티브 프로젝트를 한눈에! 🎁</p>
-      <p class="header-subtext">
-        Streamlit, Generative AI, 데이터분석까지 — 여러분의 아이디어가 코딩으로 완성된 순간을 함께 축하해요.
-      </p>
-    </header-inner>
-  </header>
-
-  <main class="page-shell" id="gallery">
-    <!-- 소개/통계 패널 -->
-    <section class="intro-panel" aria-label="행사 소개">
-      <div class="intro-text">
-        <h2>Online Winter Gallery</h2>
-        <p>
-          <strong>AI x SW 윈터 페스타</strong>는 한 학기 동안 학생들이 직접 기획·설계·구현한
-          웹 애플리케이션을 온라인으로 전시하는 공간입니다.<br />
-          각 프로젝트는 일상 속 문제를 발견하고, <strong>데이터와 생성형 AI</strong>를 활용해
-          자신만의 방식으로 해결한 결과물입니다. 카드를 눌러 실제 서비스를 직접 체험해보세요!
-        </p>
-      </div>
-      <div class="intro-meta">
-        <div class="meta-chip">
-          <span class="meta-label">Classes</span>
-          <span class="meta-value">35 · 36 · 37 · 38분반</span>
-          <span class="meta-sub">4개 분반의 팀·개인 프로젝트</span>
-        </div>
-        <div class="meta-chip">
-          <span class="meta-label">Topics</span>
-          <span class="meta-value">여행 · 재무 · 건강 · 추천 · 학습</span>
-          <span class="meta-sub">실생활 문제를 겨냥한 AI 서비스</span>
-        </div>
-        <div class="meta-chip">
-          <span class="meta-label">Tech Stack</span>
-          <span class="meta-value">Python · Streamlit · OpenAI</span>
-          <span class="meta-sub">API & LLM 활용 프로젝트 다수</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- 고정 탭 -->
-    <div class="tabs-wrapper">
-      <div class="tabs">
-        <button class="tab-button active" data-target="class1">
-          <i class="fa-solid fa-sleigh"></i> 35분반
-        </button>
-        <button class="tab-button" data-target="class2">
-          <i class="fa-solid fa-bauble"></i> 36분반
-        </button>
-        <button class="tab-button" data-target="class3">
-          <i class="fa-solid fa-star"></i> 37분반
-        </button>
-        <button class="tab-button" data-target="class4">
-          <i class="fa-solid fa-candy-cane"></i> 38분반
-        </button>
-      </div>
+    <div class="music-control" onclick="toggleMusic()">
+        <i id="musicIcon" class="fas fa-play"></i>
+        <span id="musicText">Carol Play ♬</span>
     </div>
 
-    <!-- 검색 & 범례 -->
-    <div class="tools-bar">
-      <div class="search-box">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input
-          id="searchInput"
-          type="text"
-          placeholder="프로젝트 제목 또는 팀 이름으로 검색해보세요 🔍"
-        />
-      </div>
-      <div class="tools-right">
-        <div class="legend-pill">
-          <span class="legend-dot" style="background:#bbf7d0;"></span>
-          <span>제출완료</span>
-        </div>
-        <div class="legend-pill">
-          <span class="legend-dot" style="background:#fecaca;"></span>
-          <span>확인 필요 · 미제출</span>
-        </div>
-      </div>
+    <div class="snow-container" aria-hidden="true">
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
     </div>
 
-    <!-- ========================= 35분반 ========================= -->
-    <section id="class1" class="tab-content active" aria-label="35분반">
-      <div class="grid">
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-headphones-alt"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">감정 기반 플레이리스트</h3>
-              <div class="team-name">김진영</div>
-            </div>
-          </div>
-          <p class="description">기분 · 장르 · 가수를 반영해서 나만의 음악을 추천해줄게</p>
-          <a href="https://aisw1118.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3501.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_01" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+    <header>
+        <h1>2025 AI 기반 SW 프로그래밍 </h1>
+        <p>🎅 학생들의 창의적인 프로젝트를 소개합니다 🎁</p>
+    </header>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'class1')">35분반</button>
+            <button class="tab-button" onclick="openTab(event, 'class2')">36분반</button>
+            <button class="tab-button" onclick="openTab(event, 'class3')">37분반</button>
+            <button class="tab-button" onclick="openTab(event, 'class4')">38분반</button>
         </div>
 
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-map-location-dot"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">국내 뚜벅이 여행 코스</h3>
-              <div class="team-name">전현진</div>
+        <div id="class1" class="tab-content active">
+            <div class="grid">
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-headphones-alt"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">감정 기반 플레이리스트</h3>
+                            <div class="team-name">김진영</div>
+                        </div>
+                    </div>
+                    <p class="description">기분 · 장르 · 가수를 반영해서 나만의 음악을 추천해줄게</p>
+                    <a href="https://aisw1118.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3501.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_01" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-map-location-dot"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">국내 뚜벅이 여행 코스</h3>
+                            <div class="team-name">전현진</div>
+                        </div>
+                    </div>
+                    <p class="description">국내 여행 코스 및 동선을 소개합니다.</p>
+                    <a href="#" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3502.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_02" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-yet">확인 필요</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-trash-arrow-up"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">AI 스마트 분리수거</h3>
+                            <div class="team-name">강지은, 이다은</div>
+                        </div>
+                    </div>
+                    <p class="description">버릴 물건을 입력하면 분리수거를 도와드려요!</p>
+                    <a href="https://aiswfrist.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3503.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_03" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-burger"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">내 주변 맛집 추천!</h3>
+                            <div class="team-name">노수민, 김의찬</div>
+                        </div>
+                    </div>
+                    <p class="description">뭐 먹을지 고민 노노. 맛집을 찾아드립니다.</p>
+                    <a href="https://chosun202501.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3504.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_04" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-kitchen-set"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">AI 냉장고 요리사</h3>
+                            <div class="team-name">김건형</div>
+                        </div>
+                    </div>
+                    <p class="description">냉장고 재료로 AI가 레시피를 추천해줍니다.</p>
+                    <a href="https://aiswhyungs.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3505.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_05" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-plane-circle-check"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">맞춤형 여행 일정</h3>
+                            <div class="team-name">마영민, 김채이, 서지연</div>
+                        </div>
+                    </div>
+                    <p class="description">당신만을 위한 여행 일정을 AI가 추천해줍니다.</p>
+                    <a href="https://aiswf001.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3506.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_06" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-arrow-trend-up"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">AI 주식 도우미</h3>
+                            <div class="team-name">임준우</div>
+                        </div>
+                    </div>
+                    <p class="description">투자 조건을 선택하면 AI가 종목을 추천합니다.</p>
+                    <a href="https://aisw0512.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3507.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_07" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-magnifying-glass-chart"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">AI 거르미</h3>
+                            <div class="team-name">정예진</div>
+                        </div>
+                    </div>
+                    <p class="description">허위 정보/가짜 논문 탐지기</p>
+                    <a href="https://chosun3508.streamlit.app/" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3508.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_08" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-book-open-reader"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">네이버 웹툰 추천📚 </h3>
+                            <div class="team-name">김진성</div>
+                        </div>
+                    </div>
+                    <p class="description">장르를 선택하면 웹툰을 추천해드립니다!</p>
+                    <a href="https://aisw011.streamlit.app/" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3509.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_09" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-envelope-open-text"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">문자보내기</h3>
+                            <div class="team-name">윤유솔</div>
+                        </div>
+                    </div>
+                    <p class="description">핸드폰 번호와 문자 내용을 입력하면 문자를 보내드립니다!</p>
+                    <a href="https://aisw000111.streamlit.app/" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3510.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_10" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-blender"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">맞춤 레시피 추천기</h3>
+                            <div class="team-name">김아현</div>
+                        </div>
+                    </div>
+                    <p class="description">입력한 재료를 기반으로 만들 수 있는 요리를 추천해주는 앱입니다!</p>
+                    <a href="https://aiswsecond.streamlit.app/" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3511.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_11" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-calendar-check"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">습관개선어플</h3>
+                            <div class="team-name">김대한</div>
+                        </div>
+                    </div>
+                    <p class="description">삶을 개선하기 위한 첫걸음!</p>
+                    <a href="https://aisw-3-vxudgzozc4o7pwrb55kn5f.streamlit.app" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3512.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_12" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-bullseye"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">목표 관리 페이지</h3>
+                            <div class="team-name">임아란</div>
+                        </div>
+                    </div>
+                    <p class="description">목표 카테고리와 목표를 입력하세요!</p>
+                    <a href="https://aisw000000001.streamlit.app/" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3513.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_13" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-hourglass-half"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">여행지 추천</h3>
+                            <div class="team-name">공태웅</div>
+                        </div>
+                    </div>
+                    <p class="description">여행지를 추천해드립니다!</p>
+                    <a href="https://aiaiaidd.streamlit.app/" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3514.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_14" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-child-reaching"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">나의 체형 분석하기</h3>
+                            <div class="team-name">유믿음</div>
+                        </div>
+                    </div>
+                    <p class="description">당신의 체형을 분석해드립니다!</p>
+                    <a href="https://aisw1026.streamlit.app/" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3515.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_15" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-image"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">AI 사진 구별</h3>
+                            <div class="team-name">김시우</div>
+                        </div>
+                    </div>
+                    <p class="description">사진을 업로드하면 AI가 사진을 구별해줍니다!</p>
+                    <a href="https://share.streamlit.io/app/aiimagedetect11/" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3516.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_16" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-gamepad"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">AI 인기/유사 게임 추천</h3>
+                            <div class="team-name">채병욱</div>
+                        </div>
+                    </div>
+                    <p class="description">성향 기반 맞춤형 게임을 추천해드립니다!</p>
+                    <a href="https://aisw22.streamlit.app/#1-portal-2" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3517.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_17" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-yet">확인 필요</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-notes-medical"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">👨‍⚕️AI Hospital</h3>
+                            <div class="team-name">문효원</div>
+                        </div>
+                    </div>
+                    <p class="description">당신의 건강을 위한 가장 신뢰할 수 있는 파트너!</p>
+                    <a href="https://chosun3517.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3518.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_18" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-user-doctor"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">💰 AI 기반 가계부 & 지출 분석 웹앱</h3>
+                            <div class="team-name">이동연</div>
+                        </div>
+                    </div>
+                    <p class="description">수입과 지출을 입력하고, 통계/그래프/AI 소비조언을 받아보세요.</p>
+                    <a href="https://aiswlee.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3519.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_19" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-plane"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">트립AI ✈️</h3>
+                            <div class="team-name">김도경</div>
+                        </div>
+                    </div>
+                    <p class="description">AI와 함께하는 즐거운 여행 계획</p>
+                    <a href="https://chosun3506.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3520.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_20" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+              
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-image"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">배경화면 제작🌈</h3>
+                            <div class="team-name">강혜원</div>
+                        </div>
+                    </div>
+                    <p class="description">AI가 배경화면을 만들어줍니다.</p>
+                    <a href="https://chosun3500.streamlit.app/" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3500.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_16" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+                
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-bottle-water"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">분리수거 도우미</h3>
+                            <div class="team-name">조인서, 박윤</div>
+                        </div>
+                    </div>
+                    <p class="description">물건 이름을 입력하면 쓰레기 종류를 알려줄게요!</p>
+                    <a href="https://appzw7vn4ncbyrfujfcmr4s.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3521.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_21" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-yet">미제출</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-pen-ruler"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">프로젝트 제목</h3>
+                            <div class="team-name">심지슬</div>
+                        </div>
+                    </div>
+                    <p class="description">설명을 입력하세요</p>
+                    <a href="#" class="link-btn disabled">제출 대기 중</a>
+                    <a href="#" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_22" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-mug-hot"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">아침을 여는 맞춤 노래</h3>
+                            <div class="team-name">정무향</div>
+                        </div>
+                    </div>
+                    <p class="description">아침을 여는 응원 메시지와 맞춤 노래를 추천해드립니다!</p>
+                    <a href="https://4vebcyi5d3cxptwshqxb3i.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3523.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_23" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-heart-pulse"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">우울증 자가진단</h3>
+                            <div class="team-name">박서진</div>
+                        </div>
+                    </div>
+                    <p class="description">간단한 질문을 통해 우울증을 진단할 수 있습니다.</p>
+                    <a href="https://aisw-01.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3524.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_24" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-yet">확인 필요</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-user-clock"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">프로젝트 제목</h3>
+                            <div class="team-name">문은강</div>
+                        </div>
+                    </div>
+                    <p class="description">설명을 입력하세요</p>
+                    <a href="#" class="link-btn disabled">계정 제한 상태</a>
+                    <a href="manuals/3525.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_25" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-truck-medical"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">미니 응급실</h3>
+                            <div class="team-name">유수린</div>
+                        </div>
+                    </div>
+                    <p class="description">AI기반 증상 분석 및 응급도 판단 서비스를 제공합니다.</p>
+                    <a href="https://aiswone.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3526.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_26" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-yet">미제출</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-folder-open"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">프로젝트 제목</h3>
+                            <div class="team-name">임사랑</div>
+                        </div>
+                    </div>
+                    <p class="description">설명을 입력하세요</p>
+                    <a href="#" class="link-btn disabled">제출 대기 중</a>
+                    <a href="#" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_27" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
             </div>
-          </div>
-          <p class="description">국내 여행 코스 및 동선을 소개합니다.</p>
-          <a href="#" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3502.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_02" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
         </div>
 
-        <div class="card">
-          <span class="status-badge status-yet">확인 필요</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-trash-arrow-up"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">AI 스마트 분리수거</h3>
-              <div class="team-name">강지은, 이다은</div>
+        <div id="class2" class="tab-content">
+            <div class="grid">
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-weight-scale"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">AI 다이어트</h3>
+                            <div class="team-name">신민호</div>
+                        </div>
+                    </div>
+                    <p class="description">AI기반 맞춤형 다이어트 컨설팅</p>
+                    <a href="https://aiswminho-gmp3ihm2y7jkkuejurmhae.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3601.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_01" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-piggy-bank"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">지갑은 소중해</h3>
+                            <div class="team-name">이채은</div>
+                        </div>
+                    </div>
+                    <p class="description">현명한 소비를 권장합니다!</p>
+                    <a href="https://aisw010.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3602.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_02" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-robot"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">ChatGPT 대화</h3>
+                            <div class="team-name">유영광</div>
+                        </div>
+                    </div>
+                    <p class="description">프로필 + 키워드 + 컨텍스트로 방향성을 잡는 대화형 챗봇!</p>
+                    <a href="https://ai-sw3-p9scmjib89vhbhvakpynbj.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3603.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_03" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-seedling"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">GREEN DAILY</h3>
+                            <div class="team-name">정서연</div>
+                        </div>
+                    </div>
+                    <p class="description">환경보호 루틴을 실천하세요!</p>
+                    <a href="https://chosun202503.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3604.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_04" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-glasses"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">맞춤형 도서 큐레이터</h3>
+                            <div class="team-name">박초영</div>
+                        </div>
+                    </div>
+                    <p class="description">MBTI 기반으로 책을 추천해드려요!</p>
+                    <a href="https://chosun202502.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3605.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_05" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-flag-checkered"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">Goal Maker</h3>
+                            <div class="team-name">박은교</div>
+                        </div>
+                    </div>
+                    <p class="description">당신만의 AI 맞춤 목표 코치!</p>
+                    <a href="https://aisw0722.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3606.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_06" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-fire-burner"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">재료 기반 요리 추천 & 레시피 생성기</h3>
+                            <div class="team-name">김지호</div>
+                        </div>
+                    </div>
+                    <p class="description">원하는 재료를 입력하면, AI가 가능한 요리를 추천하고 레시피까지 만들어줍니다!</p>
+                    <a href="https://chosun3507.streamlit.app/" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3607.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_07" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-cart-shopping"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">AI 최저가 검색기</h3>
+                            <div class="team-name">김민호</div>
+                        </div>
+                    </div>
+                    <p class="description">최저가 상품을 검색해보세요</p>
+                    <a href="https://shopping3342.streamlit.app" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3608.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_08" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-code"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">게임소개하기&같이하기</h3>
+                            <div class="team-name">문종완</div>
+                        </div>
+                    </div>
+                    <p class="description">게임을 소개하고 함께 즐겨요!</p>
+                    <a href="https://jongwhan02.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3609.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_09" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-mug-saucer"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">나에게 맞는 차 추천 프로그램🍵</h3>
+                            <div class="team-name">박혜진</div>
+                        </div>
+                    </div>
+                    <p class="description">차를 추천해드립니다!</p>
+                    <a href="https://chosun3610.streamlit.app/" class="link-btn">제출완료</a>
+                    <a href="manuals/3610.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_10" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-laptop"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">🛍️ AI 전통시장 플랫폼</h3>
+                            <div class="team-name">채예서</div>
+                        </div>
+                    </div>
+                    <p class="description">전통시장을 살펴보세요!</p>
+                    <a href="https://chosun3611.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3611.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_11" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-yet">미제출</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-user-large-slash"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">미제출</h3>
+                            <div class="team-name">신홍민</div>
+                        </div>
+                    </div>
+                    <p class="description">아직 제출되지 않았습니다.</p>
+                    <a href="#" class="link-btn disabled">미제출</a>
+                    <a href="manuals/3612.pdf" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_12" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">미제출</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-users-gear"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">🎓 학생회 통합 플랫폼</h3>
+                            <div class="team-name">이서현</div>
+                        </div>
+                    </div>
+                    <p class="description">학생회 임원과 학생 간의 모든 소통과 업무를 AI 기반으로 자동화하는 통합 플랫폼입니다.</p>
+                    <a href="https://chosun3713.streamlit.app/" class="link-btn">제출완료</a>
+                    <a href="manuals/3613.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_13" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-clock"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">시간 효율 관리앱</h3>
+                            <div class="team-name">이와니, 이윤서, 서유진</div>
+                        </div>
+                    </div>
+                    <p class="description">효율적인 시간 관리를 도와드립니다.</p>
+                    <a href="https://chosun3614.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3614.pdf" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_14" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-carrot"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">냉장고 재료 소진 레시피 생성기</h3>
+                            <div class="team-name">이하정, 박소이</div>
+                        </div>
+                    </div>
+                    <p class="description">냉장고 속 재료로 맛있는 레시피를 만들어보세요.</p>
+                    <a href="https://gkwjdd.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3615.pdf" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_15" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-store"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">학생 맞춤형 음식점 추천 서비스</h3>
+                            <div class="team-name">정아인</div>
+                        </div>
+                    </div>
+                    <p class="description">학생들을 위한 최고의 맛집 추천 서비스</p>
+                    <a href="https://chosun3616.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3616.pdf" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_16" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-utensils"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">🍽️ AI 메뉴 추천 서비스</h3>
+                            <div class="team-name">박관영, 박송현</div>
+                        </div>
+                    </div>
+                    <p class="description">오늘 뭐 먹지? AI가 추천해드립니다.</p>
+                    <a href="https://delivery-6b8aksjtxpc2767pwr49fg.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3617.pdf" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_17" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-file-pen"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">📄 문서 자동 요약 & 퀴즈 생성</h3>
+                            <div class="team-name">기현우, 김승준, 이승헌</div>
+                        </div>
+                    </div>
+                    <p class="description">문서를 요약하고 퀴즈를 생성하여 학습 효율을 높이세요.</p>
+                    <a href="https://aisw12341.streamlit.app/#24a50582" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3618.pdf" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_18" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-pencil"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">시험 공부 계획 자동 생성 앱 📝</h3>
+                            <div class="team-name">차예린</div>
+                        </div>
+                    </div>
+                    <p class="description">AI가 맞춤형 시험 공부 계획을 짜드립니다.</p>
+                    <a href="https://yerinaisw.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3619.pdf" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_19" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-flask"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">전자담배 액상 추천 서비스</h3>
+                            <div class="team-name">고영욱</div>
+                        </div>
+                    </div>
+                    <p class="description">취향에 맞는 액상을 추천해드립니다.</p>
+                    <a href="https://liquid01.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3620.pdf" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_20" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
             </div>
-          </div>
-          <p class="description">버릴 물건을 입력하면 분리수거를 도와드려요!</p>
-          <a href="https://aiswfrist.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3503.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_03" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
         </div>
 
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-burger"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">내 주변 맛집 추천!</h3>
-              <div class="team-name">노수민, 김의찬</div>
+        <div id="class3" class="tab-content">
+            <div class="grid">
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-cloud-sun-rain"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">L🍀CKY Fair.Y Syndrome</h3>
+                            <div class="team-name">정민아</div>
+                        </div>
+                    </div>
+                    <p class="description">오늘의 날씨에 맞춰 당신의 옷장에서 옷을 골라드려요.</p>
+                    <a href="https://aisw37-001.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3701.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_01" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-yet">미제출</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-ghost"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">미제출</h3>
+                            <div class="team-name">김하은</div>
+                        </div>
+                    </div>
+                    <p class="description">아직 제출되지 않았습니다.</p>
+                    <a href="#" class="link-btn disabled">미제출</a>
+                    <a href="#" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_02" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-face-smile-beam"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">당신을 위로해 드립니다!</h3>
+                            <div class="team-name">오대웅</div>
+                        </div>
+                    </div>
+                    <p class="description">오늘은 어떤 기분이신가요?</p>
+                    <a href="https://chosun3703.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3703.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_03" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-money-bill-trend-up"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">테마별 랜덤 미국 주식 추천</h3>
+                            <div class="team-name">김태풍</div>
+                        </div>
+                    </div>
+                    <p class="description">테마를 입력하고 주식을 추천 받아보세요!</p>
+                    <a href="https://chosun3704.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3704.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_04" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-language"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">문화 소통 도우미</h3>
+                            <div class="team-name">오정은</div>
+                        </div>
+                    </div>
+                    <p class="description">특정 상황에 맞는 권장 표현과 문화적 해설을 제공해드릴게요</p>
+                    <a href="https://aiswcultural.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3705.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_05" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-receipt"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">소비 습관 분석</h3>
+                            <div class="team-name">전주아</div>
+                        </div>
+                    </div>
+                    <p class="description">매일의 소비 기록을 입력하고, AI 기반의 분석 및 맞춤 코칭을 받아보세요.</p>
+                    <a href="https://consumerimpulsebuyinghabit.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3706.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_06" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-suitcase"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">저 오늘 떠나요, 대한민국으로</h3>
+                            <div class="team-name">복누림</div>
+                        </div>
+                    </div>
+                    <p class="description">국내 여행의 매력을 알려줄게</p>
+                    <a href="https://xsfhar9r6ba2bnhtttl3in.streamlit.app/" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3707" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_07" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-pen-nib"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">마케팅 문구 생성기</h3>
+                            <div class="team-name">황세현</div>
+                        </div>
+                    </div>
+                    <p class="description">누구나 쉽게 만들 수 있어요</p>
+                    <a href="https://chosun3708.streamlit.app/" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3708" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_08" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-yet">미제출</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-user-slash"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">미제출</h3>
+                            <div class="team-name">백민혜</div>
+                        </div>
+                    </div>
+                    <p class="description">아직 제출되지 않았습니다.</p>
+                    <a href="#" class="link-btn disabled">미제출</a>
+                    <a href="#" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_09" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-calendar-check"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">오늘 하루 루틴 추천✨</h3>
+                            <div class="team-name">서지율</div>
+                        </div>
+                    </div>
+                    <p class="description">알찬 하루를 위한 루틴 추천!</p>
+                    <a href="https://aisw1231.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3709.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_10" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-fire"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">갓생 살기👊😎👊</h3>
+                            <div class="team-name">장지호</div>
+                        </div>
+                    </div>
+                    <p class="description">갓생을 살고 싶은 당신을 위하여</p>
+                    <a href="https://aiswj1.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3710.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_11" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-newspaper"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">📰 AI 뉴스 요약 & 판별기</h3>
+                            <div class="team-name">신슬민</div>
+                        </div>
+                    </div>
+                    <p class="description">뉴스를 요약하고 가짜뉴스를 판별해드립니다.</p>
+                    <a href="https://aisw01shin.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3711.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_12" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-graduation-cap"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">🎓 대학생 전용 AI 도우미</h3>
+                            <div class="team-name">노건완</div>
+                        </div>
+                    </div>
+                    <p class="description">대학생을 위한 AI 비서 서비스</p>
+                    <a href="https://docong13.streamlit.app" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3712.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_13" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-yet">미제출</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-user-slash"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">미제출</h3>
+                            <div class="team-name">정수빈</div>
+                        </div>
+                    </div>
+                    <p class="description">아직 제출되지 않았습니다.</p>
+                    <a href="#" class="link-btn disabled">미제출</a>
+                    <a href="#" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_14" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-earth-americas"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">🌍 세계 상식 퀴즈 챌린지</h3>
+                            <div class="team-name">김성진, 하민우</div>
+                        </div>
+                    </div>
+                    <p class="description">당신의 세계 상식은 몇 점?</p>
+                    <a href="https://worldcommonsensequiz.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3713.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_15" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-music"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">오늘의 노래🎧🎶</h3>
+                            <div class="team-name">백한비</div>
+                        </div>
+                    </div>
+                    <p class="description">오늘 당신에게 어울리는 노래를 추천해드려요.</p>
+                    <a href="https://aisw45.streamlit.app/#3d011f5" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3714.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_16" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
             </div>
-          </div>
-          <p class="description">뭐 먹을지 고민 노노. 맛집을 찾아드립니다.</p>
-          <a href="https://chosun202501.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3504.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_04" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
         </div>
 
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-kitchen-set"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">AI 냉장고 요리사</h3>
-              <div class="team-name">김건형</div>
-            </div>
-          </div>
-          <p class="description">냉장고 재료로 AI가 레시피를 추천해줍니다.</p>
-          <a href="https://aiswhyungs.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3505.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_05" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
+        <div id="class4" class="tab-content">
+            <div class="grid">
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-spray-can"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">화장품 추천</h3>
+                            <div class="team-name">오다은</div>
+                        </div>
+                    </div>
+                    <p class="description">당신의 퍼스널 컬러에 맞는 화장품을 추천해드려요!</p>
+                    <a href="https://chosun202504.streamlit.app/" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3801.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_01" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
 
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-plane-circle-check"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">맞춤형 여행 일정</h3>
-              <div class="team-name">마영민, 김채이, 서지연</div>
-            </div>
-          </div>
-          <p class="description">당신만을 위한 여행 일정을 AI가 추천해줍니다.</p>
-          <a href="https://aiswf001.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3506.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_06" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-passport"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">후회없는 여행 만들어드립니다</h3>
+                            <div class="team-name">최승민</div>
+                        </div>
+                    </div>
+                    <p class="description">여행을 추천해드립니다!</p>
+                    <a href="https://chosoun202505.streamlit.app/" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3802.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_02" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
 
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-arrow-trend-up"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">AI 주식 도우미</h3>
-              <div class="team-name">임준우</div>
-            </div>
-          </div>
-          <p class="description">투자 조건을 선택하면 AI가 종목을 추천합니다.</p>
-          <a href="https://aisw0512.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3507.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_07" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-scissors"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">3줄 요약기</h3>
+                            <div class="team-name">이우진</div>
+                        </div>
+                    </div>
+                    <p class="description">요약하고 싶은 글을 붙여넣으면 3줄로 요약해 드립니다요</p>
+                    <a href="https://aisw38.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3803.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_03" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
 
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-magnifying-glass-chart"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">AI 거르미</h3>
-              <div class="team-name">정예진</div>
-            </div>
-          </div>
-          <p class="description">허위 정보/가짜 논문 탐지기</p>
-          <a href="https://chosun3508.streamlit.app/" class="link-btn">결과물 보기</a>
-          <a href="manuals/3508.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_08" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-hourglass-start"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">AI 학습 루틴 & 집중 블록 타이머</h3>
+                            <div class="team-name">이한울</div>
+                        </div>
+                    </div>
+                    <p class="description">학습루틴을 만들고 목표를 달성해보세요!</p>
+                    <a href="https://aaaaisw04.streamlit.app/" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3804.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_04" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
 
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-book-open-reader"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">네이버 웹툰 추천📚 </h3>
-              <div class="team-name">김진성</div>
-            </div>
-          </div>
-          <p class="description">장르를 선택하면 웹툰을 추천해드립니다!</p>
-          <a href="https://aisw011.streamlit.app/" class="link-btn">결과물 보기</a>
-          <a href="manuals/3509.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_09" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-clapperboard"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">영화 추천 앱</h3>
+                            <div class="team-name">이누림</div>
+                        </div>
+                    </div>
+                    <p class="description">당신의 인생 영화를 알려주세요!</p>
+                    <a href="https://7kpwlumq6feqfxsut2ddti.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3805.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_05" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
 
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-envelope-open-text"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">문자보내기</h3>
-              <div class="team-name">윤유솔</div>
-            </div>
-          </div>
-          <p class="description">핸드폰 번호와 문자 내용을 입력하면 문자를 보내드립니다!</p>
-          <a href="https://aisw000111.streamlit.app/" class="link-btn">결과물 보기</a>
-          <a href="manuals/3510.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_10" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-blender"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">맞춤 레시피 추천기</h3>
-              <div class="team-name">김아현</div>
-            </div>
-          </div>
-          <p class="description">입력한 재료를 기반으로 만들 수 있는 요리를 추천해주는 앱입니다!</p>
-          <a href="https://aiswsecond.streamlit.app/" class="link-btn">결과물 보기</a>
-          <a href="manuals/3511.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_11" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-calendar-check"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">습관개선어플</h3>
-              <div class="team-name">김대한</div>
-            </div>
-          </div>
-          <p class="description">삶을 개선하기 위한 첫걸음!</p>
-          <a href="https://aisw-3-vxudgzozc4o7pwrb55kn5f.streamlit.app" class="link-btn">결과물 보기</a>
-          <a href="manuals/3512.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_12" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-bullseye"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">목표 관리 페이지</h3>
-              <div class="team-name">임아란</div>
-            </div>
-          </div>
-          <p class="description">목표 카테고리와 목표를 입력하세요!</p>
-          <a href="https://aisw000000001.streamlit.app/" class="link-btn">결과물 보기</a>
-          <a href="manuals/3513.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_13" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-hourglass-half"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">여행지 추천</h3>
-              <div class="team-name">공태웅</div>
-            </div>
-          </div>
-          <p class="description">여행지를 추천해드립니다!</p>
-          <a href="https://aiaiaidd.streamlit.app/" class="link-btn">결과물 보기</a>
-          <a href="manuals/3514.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_14" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-child-reaching"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">나의 체형 분석하기</h3>
-              <div class="team-name">유믿음</div>
-            </div>
-          </div>
-          <p class="description">당신의 체형을 분석해드립니다!</p>
-          <a href="https://aisw1026.streamlit.app/" class="link-btn">결과물 보기</a>
-          <a href="manuals/3515.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_15" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-image"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">AI 사진 구별</h3>
-              <div class="team-name">김시우</div>
-            </div>
-          </div>
-          <p class="description">사진을 업로드하면 AI가 사진을 구별해줍니다!</p>
-          <a href="https://share.streamlit.io/app/aiimagedetect11/" class="link-btn">결과물 보기</a>
-          <a href="manuals/3516.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_16" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-gamepad"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">AI 인기/유사 게임 추천</h3>
-              <div class="team-name">채병욱</div>
-            </div>
-          </div>
-          <p class="description">성향 기반 맞춤형 게임을 추천해드립니다!</p>
-          <a href="https://aisw22.streamlit.app/#1-portal-2" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3517.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_17" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-yet">확인 필요</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-notes-medical"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">👨‍⚕️AI Hospital</h3>
-              <div class="team-name">문효원</div>
-            </div>
-          </div>
-          <p class="description">당신의 건강을 위한 가장 신뢰할 수 있는 파트너!</p>
-          <a href="https://chosun3517.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3518.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_18" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-user-doctor"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">💰 AI 기반 가계부 & 지출 분석 웹앱</h3>
-              <div class="team-name">이동연</div>
-            </div>
-          </div>
-          <p class="description">수입과 지출을 입력하고, 통계/그래프/AI 소비조언을 받아보세요.</p>
-          <a href="https://aiswlee.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3519.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_19" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-plane"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">트립AI ✈️</h3>
-              <div class="team-name">김도경</div>
-            </div>
-          </div>
-          <p class="description">AI와 함께하는 즐거운 여행 계획</p>
-          <a href="https://chosun3506.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3520.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_20" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-      
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-image"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">배경화면 제작🌈</h3>
-              <div class="team-name">강혜원</div>
-            </div>
-          </div>
-          <p class="description">AI가 배경화면을 만들어줍니다.</p>
-          <a href="https://chosun3500.streamlit.app/" class="link-btn">결과물 보기</a>
-          <a href="manuals/3500.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_16" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-        
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-bottle-water"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">분리수거 도우미</h3>
-              <div class="team-name">조인서, 박윤</div>
-            </div>
-          </div>
-          <p class="description">물건 이름을 입력하면 쓰레기 종류를 알려줄게요!</p>
-          <a href="https://appzw7vn4ncbyrfujfcmr4s.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3521.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_21" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-yet">미제출</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-pen-ruler"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">프로젝트 제목</h3>
-              <div class="team-name">심지슬</div>
-            </div>
-          </div>
-          <p class="description">설명을 입력하세요</p>
-          <a href="#" class="link-btn disabled">제출 대기 중</a>
-          <a href="#" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_22" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-mug-hot"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">아침을 여는 맞춤 노래</h3>
-              <div class="team-name">정무향</div>
-            </div>
-          </div>
-          <p class="description">아침을 여는 응원 메시지와 맞춤 노래를 추천해드립니다!</p>
-          <a href="https://4vebcyi5d3cxptwshqxb3i.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3523.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_23" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-heart-pulse"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">우울증 자가진단</h3>
-              <div class="team-name">박서진</div>
-            </div>
-          </div>
-          <p class="description">간단한 질문을 통해 우울증을 진단할 수 있습니다.</p>
-          <a href="https://aisw-01.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3524.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_24" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-yet">확인 필요</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-user-clock"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">프로젝트 제목</h3>
-              <div class="team-name">문은강</div>
-            </div>
-          </div>
-          <p class="description">설명을 입력하세요</p>
-          <a href="#" class="link-btn disabled">계정 제한 상태</a>
-          <a href="manuals/3525.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_25" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-truck-medical"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">미니 응급실</h3>
-              <div class="team-name">유수린</div>
-            </div>
-          </div>
-          <p class="description">AI기반 증상 분석 및 응급도 판단 서비스를 제공합니다.</p>
-          <a href="https://aiswone.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3526.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_26" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-yet">미제출</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-folder-open"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">프로젝트 제목</h3>
-              <div class="team-name">임사랑</div>
-            </div>
-          </div>
-          <p class="description">설명을 입력하세요</p>
-          <a href="#" class="link-btn disabled">제출 대기 중</a>
-          <a href="#" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c35_27" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========================= 36분반 ========================= -->
-    <section id="class2" class="tab-content" aria-label="36분반">
-      <div class="grid">
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-weight-scale"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">AI 다이어트</h3>
-              <div class="team-name">신민호</div>
-            </div>
-          </div>
-          <p class="description">AI기반 맞춤형 다이어트 컨설팅</p>
-          <a href="https://aiswminho-gmp3ihm2y7jkkuejurmhae.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3601.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_01" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-piggy-bank"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">지갑은 소중해</h3>
-              <div class="team-name">이채은</div>
-            </div>
-          </div>
-          <p class="description">현명한 소비를 권장합니다!</p>
-          <a href="https://aisw010.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3602.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_02" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-robot"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">ChatGPT 대화</h3>
-              <div class="team-name">유영광</div>
-            </div>
-          </div>
-          <p class="description">프로필 + 키워드 + 컨텍스트로 방향성을 잡는 대화형 챗봇!</p>
-          <a href="https://ai-sw3-p9scmjib89vhbhvakpynbj.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3603.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_03" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-seedling"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">GREEN DAILY</h3>
-              <div class="team-name">정서연</div>
-            </div>
-          </div>
-          <p class="description">환경보호 루틴을 실천하세요!</p>
-          <a href="https://chosun202503.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3604.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_04" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-glasses"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">맞춤형 도서 큐레이터</h3>
-              <div class="team-name">박초영</div>
-            </div>
-          </div>
-          <p class="description">MBTI 기반으로 책을 추천해드려요!</p>
-          <a href="https://chosun202502.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3605.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_05" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-flag-checkered"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">Goal Maker</h3>
-              <div class="team-name">박은교</div>
-            </div>
-          </div>
-          <p class="description">당신만의 AI 맞춤 목표 코치!</p>
-          <a href="https://aisw0722.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3606.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_06" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-fire-burner"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">재료 기반 요리 추천 & 레시피 생성기</h3>
-              <div class="team-name">김지호</div>
-            </div>
-          </div>
-          <p class="description">원하는 재료를 입력하면, AI가 가능한 요리를 추천하고 레시피까지 만들어줍니다!</p>
-          <a href="https://chosun3507.streamlit.app/" class="link-btn">결과물 보기</a>
-          <a href="manuals/3607.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_07" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-cart-shopping"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">AI 최저가 검색기</h3>
-              <div class="team-name">김민호</div>
-            </div>
-          </div>
-          <p class="description">최저가 상품을 검색해보세요</p>
-          <a href="https://shopping3342.streamlit.app" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3608.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_08" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-code"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">게임소개하기&같이하기</h3>
-              <div class="team-name">문종완</div>
-            </div>
-          </div>
-          <p class="description">게임을 소개하고 함께 즐겨요!</p>
-          <a href="https://jongwhan02.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3609.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_09" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-mug-saucer"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">나에게 맞는 차 추천 프로그램🍵</h3>
-              <div class="team-name">박혜진</div>
-            </div>
-          </div>
-          <p class="description">차를 추천해드립니다!</p>
-          <a href="https://chosun3610.streamlit.app/" class="link-btn">제출완료</a>
-          <a href="manuals/3610.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_10" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-laptop"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">🛍️ AI 전통시장 플랫폼</h3>
-              <div class="team-name">채예서</div>
-            </div>
-          </div>
-          <p class="description">전통시장을 살펴보세요!</p>
-          <a href="https://chosun3611.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3611.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_11" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-yet">미제출</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-user-large-slash"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">미제출</h3>
-              <div class="team-name">신홍민</div>
-            </div>
-          </div>
-          <p class="description">아직 제출되지 않았습니다.</p>
-          <a href="#" class="link-btn disabled">미제출</a>
-          <a href="manuals/3612.pdf" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_12" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">미제출</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-users-gear"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">🎓 학생회 통합 플랫폼</h3>
-              <div class="team-name">이서현</div>
-            </div>
-          </div>
-          <p class="description">학생회 임원과 학생 간의 모든 소통과 업무를 AI 기반으로 자동화하는 통합 플랫폼입니다.</p>
-          <a href="https://chosun3713.streamlit.app/" class="link-btn">제출완료</a>
-          <a href="manuals/3613.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_13" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-clock"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">시간 효율 관리앱</h3>
-              <div class="team-name">이와니, 이윤서, 서유진</div>
-            </div>
-          </div>
-          <p class="description">효율적인 시간 관리를 도와드립니다.</p>
-          <a href="https://chosun3614.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3614.pdf" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_14" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-carrot"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">냉장고 재료 소진 레시피 생성기</h3>
-              <div class="team-name">이하정, 박소이</div>
-            </div>
-          </div>
-          <p class="description">냉장고 속 재료로 맛있는 레시피를 만들어보세요.</p>
-          <a href="https://gkwjdd.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3615.pdf" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_15" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-store"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">학생 맞춤형 음식점 추천 서비스</h3>
-              <div class="team-name">정아인</div>
-            </div>
-          </div>
-          <p class="description">학생들을 위한 최고의 맛집 추천 서비스</p>
-          <a href="https://chosun3616.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3616.pdf" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_16" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-utensils"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">🍽️ AI 메뉴 추천 서비스</h3>
-              <div class="team-name">박관영, 박송현</div>
-            </div>
-          </div>
-          <p class="description">오늘 뭐 먹지? AI가 추천해드립니다.</p>
-          <a href="https://delivery-6b8aksjtxpc2767pwr49fg.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3617.pdf" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_17" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-file-pen"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">📄 문서 자동 요약 & 퀴즈 생성</h3>
-              <div class="team-name">기현우, 김승준, 이승헌</div>
-            </div>
-          </div>
-          <p class="description">문서를 요약하고 퀴즈를 생성하여 학습 효율을 높이세요.</p>
-          <a href="https://aisw12341.streamlit.app/#24a50582" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3618.pdf" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_18" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-pencil"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">시험 공부 계획 자동 생성 앱 📝</h3>
-              <div class="team-name">차예린</div>
-            </div>
-          </div>
-          <p class="description">AI가 맞춤형 시험 공부 계획을 짜드립니다.</p>
-          <a href="https://yerinaisw.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3619.pdf" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_19" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-flask"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">전자담배 액상 추천 서비스</h3>
-              <div class="team-name">고영욱</div>
-            </div>
-          </div>
-          <p class="description">취향에 맞는 액상을 추천해드립니다.</p>
-          <a href="https://liquid01.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3620.pdf" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c36_20" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========================= 37분반 ========================= -->
-    <section id="class3" class="tab-content" aria-label="37분반">
-      <div class="grid">
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-cloud-sun-rain"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">L🍀CKY Fair.Y Syndrome</h3>
-              <div class="team-name">정민아</div>
-            </div>
-          </div>
-          <p class="description">오늘의 날씨에 맞춰 당신의 옷장에서 옷을 골라드려요.</p>
-          <a href="https://aisw37-001.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3701.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_01" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-yet">미제출</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-ghost"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">미제출</h3>
-              <div class="team-name">김하은</div>
-            </div>
-          </div>
-          <p class="description">아직 제출되지 않았습니다.</p>
-          <a href="#" class="link-btn disabled">미제출</a>
-          <a href="#" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_02" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-face-smile-beam"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">당신을 위로해 드립니다!</h3>
-              <div class="team-name">오대웅</div>
-            </div>
-          </div>
-          <p class="description">오늘은 어떤 기분이신가요?</p>
-          <a href="https://chosun3703.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3703.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_03" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-money-bill-trend-up"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">테마별 랜덤 미국 주식 추천</h3>
-              <div class="team-name">김태풍</div>
-            </div>
-          </div>
-          <p class="description">테마를 입력하고 주식을 추천 받아보세요!</p>
-          <a href="https://chosun3704.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3704.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_04" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-language"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">문화 소통 도우미</h3>
-              <div class="team-name">오정은</div>
-            </div>
-          </div>
-          <p class="description">특정 상황에 맞는 권장 표현과 문화적 해설을 제공해드릴게요</p>
-          <a href="https://aiswcultural.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3705.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_05" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-receipt"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">소비 습관 분석</h3>
-              <div class="team-name">전주아</div>
-            </div>
-          </div>
-          <p class="description">매일의 소비 기록을 입력하고, AI 기반의 분석 및 맞춤 코칭을 받아보세요.</p>
-          <a href="https://consumerimpulsebuyinghabit.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3706.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_06" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-suitcase"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">저 오늘 떠나요, 대한민국으로</h3>
-              <div class="team-name">복누림</div>
-            </div>
-          </div>
-          <p class="description">국내 여행의 매력을 알려줄게</p>
-          <a href="https://xsfhar9r6ba2bnhtttl3in.streamlit.app/" class="link-btn">결과물 보기</a>
-          <a href="manuals/3707" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_07" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-pen-nib"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">마케팅 문구 생성기</h3>
-              <div class="team-name">황세현</div>
-            </div>
-          </div>
-          <p class="description">누구나 쉽게 만들 수 있어요</p>
-          <a href="https://chosun3708.streamlit.app/" class="link-btn">결과물 보기</a>
-          <a href="manuals/3708" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c37_08" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========================= 38분반 ========================= -->
-    <section id="class4" class="tab-content" aria-label="38분반">
-      <div class="grid">
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-spray-can"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">화장품 추천</h3>
-              <div class="team-name">오다은</div>
-            </div>
-          </div>
-          <p class="description">당신의 퍼스널 컬러에 맞는 화장품을 추천해드려요!</p>
-          <a href="https://chosun202504.streamlit.app/" class="link-btn">결과물 보기</a>
-          <a href="manuals/3801.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_01" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-passport"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">후회없는 여행 만들어드립니다</h3>
-              <div class="team-name">최승민</div>
-            </div>
-          </div>
-          <p class="description">여행을 추천해드립니다!</p>
-          <a href="https://chosoun202505.streamlit.app/" class="link-btn">결과물 보기</a>
-          <a href="manuals/3802.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_02" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-scissors"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">3줄 요약기</h3>
-              <div class="team-name">이우진</div>
-            </div>
-          </div>
-          <p class="description">요약하고 싶은 글을 붙여넣으면 3줄로 요약해 드립니다요</p>
-          <a href="https://aisw38.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3803.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_03" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-hourglass-start"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">AI 학습 루틴 & 집중 블록 타이머</h3>
-              <div class="team-name">이한울</div>
-            </div>
-          </div>
-          <p class="description">학습루틴을 만들고 목표를 달성해보세요!</p>
-          <a href="https://aaaaisw04.streamlit.app/" class="link-btn">결과물 보기</a>
-          <a href="manuals/3804.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_04" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
-          <span class="status-badge status-done">제출완료</span>
-          <div class="card-header">
-            <div class="icon-box"><i class="fas fa-clapperboard"></i></div>
-            <div class="project-info">
-              <h3 class="project-title">영화 추천 앱</h3>
-              <div class="team-name">이누림</div>
-            </div>
-          </div>
-          <p class="description">당신의 인생 영화를 알려주세요!</p>
-          <a href="https://7kpwlumq6feqfxsut2ddti.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
-          <a href="manuals/3805.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
-          <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_05" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
-        </div>
-
-        <div class="card">
+                <div class="card">
                     <span class="status-badge status-done">제출완료</span>
                     <div class="card-header">
                         <div class="icon-box"><i class="fas fa-earth-americas"></i></div>
@@ -1954,107 +1502,206 @@
                     <a href="manuals/3809.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
                     <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_09" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
                 </div>
-      </div>
-    </section>
-  </main>
 
-  <footer>
-    © 2025 Chosun Univ. AI/SW Dept. All rights reserved.
-    <span>Made with ☃️ by students & powered by Streamlit & Generative AI</span>
-  </footer>
+                <div class="card">
+                    <span class="status-badge status-yet">미제출</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-user-slash"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">미제출</h3>
+                            <div class="team-name">강민아</div>
+                        </div>
+                    </div>
+                    <p class="description">아직 제출되지 않았습니다.</p>
+                    <a href="#" class="link-btn disabled">미제출</a>
+                    <a href="#" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_10" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
 
-  <!-- 음악 컨트롤 -->
-  <div class="music-control" id="musicControl">
-    <i id="musicIcon" class="fas fa-play"></i>
-    <span id="musicText">Carol Play ♬</span>
-  </div>
+                <div class="card">
+                    <span class="status-badge status-yet">미제출</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-user-slash"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">미제출</h3>
+                            <div class="team-name">양주원</div>
+                        </div>
+                    </div>
+                    <p class="description">아직 제출되지 않았습니다.</p>
+                    <a href="#" class="link-btn disabled">미제출</a>
+                    <a href="#" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_11" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
 
-  <!-- 맨 위로 버튼 -->
-  <button class="to-top" id="toTopBtn" aria-label="맨 위로 이동">
-    <i class="fa-solid fa-arrow-up"></i>
-  </button>
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-plane-departure"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">✈️ 스마트 여행 일정 플래너</h3>
+                            <div class="team-name">정다원</div>
+                        </div>
+                    </div>
+                    <p class="description">스마트하게 여행 일정을 계획해보세요.</p>
+                    <a href="https://aiswfirst0102.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3812.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_12" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
 
-  <script>
-    // 탭 전환
-    const tabButtons = document.querySelectorAll(".tab-button");
-    const tabContents = document.querySelectorAll(".tab-content");
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-graduation-cap"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">🎓 맞춤형 대학생활 정보 추천</h3>
+                            <div class="team-name">배선영</div>
+                        </div>
+                    </div>
+                    <p class="description">대학생활에 필요한 정보를 맞춤 추천해드립니다.</p>
+                    <a href="https://aisw20241208.streamlit.app/" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3813.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_13" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
 
-    tabButtons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const targetId = btn.dataset.target;
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-utensils"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">🍽️ 오늘 저녁 뭐 먹지?</h3>
+                            <div class="team-name">우담희</div>
+                        </div>
+                    </div>
+                    <p class="description">오늘 저녁 메뉴를 고민 중이라면 클릭하세요!</p>
+                    <a href="https://aiswoo.streamlit.app" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3814.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_14" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
 
-        tabButtons.forEach((b) => b.classList.remove("active"));
-        tabContents.forEach((c) => c.classList.remove("active"));
+                <div class="card">
+                    <span class="status-badge status-yet">계정 제한</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-ban"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">프로젝트 제목</h3>
+                            <div class="team-name">윤한빛</div>
+                        </div>
+                    </div>
+                    <p class="description">계정 문제로 인해 접근이 제한되었습니다.</p>
+                    <a href="#" class="link-btn disabled">접근 불가</a>
+                    <a href="#" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_15" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
 
-        btn.classList.add("active");
-        document.getElementById(targetId).classList.add("active");
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-mug-hot"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">🌙 무드카페 - AI 감성 카페 추천</h3>
+                            <div class="team-name">서명관</div>
+                        </div>
+                    </div>
+                    <p class="description">당신의 감성에 맞는 카페를 추천해드립니다.</p>
+                    <a href="https://aisw99.streamlit.app/#5" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3816.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_16" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
 
-        // 탭 전환 시 검색 초기화
-        const input = document.getElementById("searchInput");
-        if (input) {
-          input.value = "";
-          applySearchFilter("");
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-heart"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">이상형 찾기</h3>
+                            <div class="team-name">안정민</div>
+                        </div>
+                    </div>
+                    <p class="description">AI와 함께 당신의 이상형을 찾아보세요.</p>
+                    <a href="https://chosun3817.streamlit.app" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3817.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_17" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-done">제출완료</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-chart-line"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">📘 AI Trend 보고서</h3>
+                            <div class="team-name">송세인</div>
+                        </div>
+                    </div>
+                    <p class="description">최신 AI 트렌드를 한눈에 파악하세요.</p>
+                    <a href="https://songsein159.streamlit.app" target="_blank" class="link-btn">결과물 보기</a>
+                    <a href="manuals/3818.pdf" class="pdf-btn"><i class="fas fa-file-pdf"></i> 설명서 보기</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_18" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="status-badge status-yet">미제출</span>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fas fa-user-slash"></i></div>
+                        <div class="project-info">
+                            <h3 class="project-title">미제출</h3>
+                            <div class="team-name">박관우</div>
+                        </div>
+                    </div>
+                    <p class="description">아직 제출되지 않았습니다.</p>
+                    <a href="#" class="link-btn disabled">미제출</a>
+                    <a href="#" class="pdf-btn disabled"><i class="fas fa-file-pdf"></i> 설명서 없음</a>
+                    <div class="like-container"><div data-lyket-type="clap" data-lyket-id="c38_19" data-lyket-namespace="showcase2025" data-lyket-color="#D42426"></div></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        © 2025 Chosun Univ. AI/SW Dept. All rights reserved.
+    </footer>
+
+    <script>
+        function openTab(evt, className) {
+            var i, tabcontent, tablinks;
+            
+            // 모든 탭 컨텐츠 숨기기
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+                tabcontent[i].classList.remove("active");
+            }
+
+            // 모든 탭 버튼 비활성화
+            tablinks = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            // 선택된 탭 보이기 및 버튼 활성화
+            document.getElementById(className).style.display = "block";
+            setTimeout(() => {
+                document.getElementById(className).classList.add("active");
+            }, 10);
+            evt.currentTarget.className += " active";
         }
-      });
-    });
 
-    // 음악 컨트롤
-    const bgm = document.getElementById("bgm");
-    const musicControl = document.getElementById("musicControl");
-    const musicIcon = document.getElementById("musicIcon");
-    const musicText = document.getElementById("musicText");
+        // 음악 컨트롤 기능
+        function toggleMusic() {
+            var music = document.getElementById("bgm");
+            var icon = document.getElementById("musicIcon");
+            var text = document.getElementById("musicText");
 
-    musicControl.addEventListener("click", () => {
-      if (bgm.paused) {
-        bgm.play();
-        musicIcon.className = "fas fa-pause";
-        musicText.textContent = "Carol Stop";
-      } else {
-        bgm.pause();
-        musicIcon.className = "fas fa-play";
-        musicText.textContent = "Carol Play ♬";
-      }
-    });
-
-    // 맨 위로 버튼
-    const toTopBtn = document.getElementById("toTopBtn");
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 320) {
-        toTopBtn.classList.add("visible");
-      } else {
-        toTopBtn.classList.remove("visible");
-      }
-    });
-    toTopBtn.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-
-    // 검색 기능 (제목/팀명 텍스트 매칭)
-    const searchInput = document.getElementById("searchInput");
-    if (searchInput) {
-      searchInput.addEventListener("input", (e) => {
-        applySearchFilter(e.target.value);
-      });
-    }
-
-    function applySearchFilter(query) {
-      const q = query.trim().toLowerCase();
-      const activeSection = document.querySelector(".tab-content.active");
-      if (!activeSection) return;
-
-      const cards = activeSection.querySelectorAll(".card");
-      cards.forEach((card) => {
-        const titleEl = card.querySelector(".project-title");
-        const teamEl = card.querySelector(".team-name");
-        const text =
-          (titleEl?.textContent || "") + " " + (teamEl?.textContent || "");
-        if (!q || text.toLowerCase().includes(q)) {
-          card.style.display = "";
-        } else {
-          card.style.display = "none";
+            if (music.paused) {
+                music.play();
+                icon.className = "fas fa-pause";
+                text.innerText = "BGM Off";
+            } else {
+                music.pause();
+                icon.className = "fas fa-play";
+                text.innerText = "BGM Play";
+            }
         }
-      });
-    }
-  </script>
+    </script>
 </body>
 </html>
