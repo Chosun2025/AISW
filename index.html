@@ -317,67 +317,49 @@
             display: flex;
             justify-content: center;
         }
-/* ================= 수상작 리본 뱃지 스타일 ================= */
-        .award-badge {
+/* ================= 🏅 수상작 메달 뱃지 스타일 ================= */
+        .medal-badge {
             position: absolute;
-            top: -8px; /* 카드 위로 살짝 튀어나오게 */
-            left: 20px;
-            padding: 8px 15px;
-            color: white;
+            top: 12px;      /* 기존 뱃지보다 살짝 위 */
+            right: 12px;    /* 기존 뱃지 위치 덮어쓰기 */
+            padding: 8px 18px;
+            border-radius: 50px; /* 둥근 메달 모양 */
             font-weight: 900;
-            font-size: 0.95em;
-            border-radius: 4px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            z-index: 20;
+            font-size: 1em;
+            z-index: 100;   /* 기존 '제출완료' 뱃지 위로 올라오게 설정 */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             display: flex;
             align-items: center;
             gap: 6px;
-            letter-spacing: -0.5px;
+            border: 2px solid rgba(255,255,255,0.7); /* 반짝이는 테두리 */
+            text-shadow: none;
         }
 
-        /* 리본 꼬리표 (입체감 효과) */
-        .award-badge::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -8px;
-            width: 8px;
-            height: 100%;
-            clip-path: polygon(100% 0, 0 100%, 100% 100%); /* 삼각형 모양 */
-            filter: brightness(0.6); /* 그림자 효과 */
-            z-index: -1;
+        /* 🥇 대상 (Gold) - 계속 반짝이는 애니메이션 */
+        .medal-grand {
+            background: linear-gradient(135deg, #FFD700 0%, #FDB931 50%, #DAA520 100%);
+            color: #634304; /* 가독성을 위한 진한 갈색 텍스트 */
+            animation: medal-glow 2s infinite ease-in-out;
         }
-        
-        /* 🥇 대상 (Gold) - 반짝이는 효과 */
-        .award-grand {
-            background: linear-gradient(135deg, #FFD700, #FDB931);
-            color: #8B4513; /* 글씨 잘 보이게 갈색 */
-            border-bottom: 2px solid #B8860B;
-            animation: award-pulse 2s infinite; /* 콩닥콩닥 효과 */
-        }
-        .award-grand::after { background: #DAA520; }
 
-        /* 🥈 최우수 (Silver) */
-        .award-top {
-            background: linear-gradient(135deg, #E0E0E0, #BDBDBD);
-            color: #333;
-            border-bottom: 2px solid #9E9E9E;
+        /* 🥈 최우수 (Silver) - 은은한 광택 */
+        .medal-silver {
+            background: linear-gradient(135deg, #E0E0E0 0%, #ffffff 50%, #A0A0A0 100%);
+            color: #424242;
         }
-        .award-top::after { background: #757575; }
 
-        /* 🥉 우수 (Bronze) */
-        .award-ex {
-            background: linear-gradient(135deg, #F4A460, #A0522D);
+        /* 🥉 우수 (Bronze) - 묵직한 동색 */
+        .medal-bronze {
+            background: linear-gradient(135deg, #FFBB7D 0%, #D2691E 50%, #8B4513 100%);
             color: white;
-            border-bottom: 2px solid #8B4513;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
         }
-        .award-ex::after { background: #8B4513; }
 
-        /* 대상 강조 애니메이션 */
-        @keyframes award-pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
-            70% { transform: scale(1.05); box-shadow: 0 0 10px 10px rgba(255, 215, 0, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+        /* 대상 반짝임 효과 */
+        @keyframes medal-glow {
+            0% { box-shadow: 0 0 5px rgba(255, 215, 0, 0.5); transform: scale(1); }
+            50% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.8); transform: scale(1.05); }
+            100% { box-shadow: 0 0 5px rgba(255, 215, 0, 0.5); transform: scale(1); }
         }
         /* ================= 음악 플레이어 버튼 ================= */
         .music-control {
@@ -546,7 +528,7 @@
                 </div>
 
                 <div class="card">
-                    <div class="award-badge award-grand"><i class="fas fa-crown"></i> 대상</div>
+                    <div class="medal-badge medal-grand"><i class="fas fa-crown"></i> 대상</div>
                     <span class="status-badge status-done">제출완료</span>
                     <div class="card-header">
                         <div class="icon-box"><i class="fas fa-arrow-trend-up"></i></div>
@@ -896,7 +878,7 @@
         <div id="class2" class="tab-content">
             <div class="grid">
                 <div class="card">
-                    <div class="award-badge award-grand"><i class="fas fa-crown"></i> 대상</div>
+                    <div class="medal-badge medal-grand"><i class="fas fa-crown"></i> 대상</div>
                     <span class="status-badge status-done">제출완료</span>
                     <div class="card-header">
                         <div class="icon-box"><i class="fas fa-weight-scale"></i></div>
@@ -1396,7 +1378,7 @@
                 </div>
 
                 <div class="card">
-                    <div class="award-badge award-grand"><i class="fas fa-crown"></i> 대상</div>
+                    <div class="medal-badge medal-grand"><i class="fas fa-crown"></i> 대상</div>
                     <span class="status-badge status-done">제출완료</span>
                     <div class="card-header">
                         <div class="icon-box"><i class="fas fa-receipt"></i></div>
@@ -1701,7 +1683,7 @@
                 </div>
 
                 <div class="card">
-                    <div class="award-badge award-grand"><i class="fas fa-crown"></i> 대상</div>
+                    <div class="medal-badge medal-grand"><i class="fas fa-crown"></i> 대상</div>
                     <span class="status-badge status-done">제출완료</span>
                     <div class="card-header">
                         <div class="icon-box"><i class="fas fa-passport"></i></div>
